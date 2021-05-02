@@ -1,6 +1,6 @@
 const express = require("express");
 const List = require("../models/List");
-const ListItem = require("../models/ListItem");
+const ListItem = require("../models/ListItemSchema");
 const ListOwner = require("../models/ListOwner");
 
 const testRouter = new express.Router();
@@ -18,10 +18,7 @@ testRouter.post("/addOwner", async (req, res) => {
 testRouter.post("/newList", async (req, res) => {
   try {
     const list = new List(req.body);
-    const owner = await ListOwner.findById(list.owner);
-    if (!owner) throw "no owner";
-    owner.lists.push(list._id);
-    await owner.save();
+
     // TODO move to pre save
     await list.save();
     res.status(201).send(list);
@@ -32,14 +29,29 @@ testRouter.post("/newList", async (req, res) => {
 
 testRouter.post("/newItem", async (req, res) => {
   try {
-    const listItem = new ListItem(req.body);
-    const list = await List.findById(listItem.list);
+    const { listId, ...item } = req.body;
+
+    const list = await List.findById(listId);
     if (!list) throw "no list";
-    list.listItems.push(listItem._id);
-    await list.save();
+    const listItems = await list.addItem(item);
     // TODO move to pre save
-    await listItem.save();
-    res.status(201).send(listItem);
+    res.status(201).send(listItems);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+testRouter.patch("/takeItem", async (req, res) => {
+  try {
+    const { listId, itemId, name } = req.body;
+
+    if (!itemId || !name) throw "missing the name or the itemId";
+
+    const list = await List.findById(listId);
+    if (!list) throw "no list";
+    const listItems = await list.takeItem(itemId, name);
+    // TODO move to pre save
+    res.status(201).send(listItems);
   } catch (error) {
     res.status(500).send(error);
   }
