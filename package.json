@@ -25,9 +25,10 @@
   "homepage": "https://github.com/jordanlaor/gift-registry-final-project#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1",
     "dotenv": "^8.2.0",
-    "mongoose": "^5.12.6"
+    "express": "^4.17.1",
+    "mongoose": "^5.12.6",
+    "validator": "^13.6.0"
   },
   "devDependencies": {
     "concurrently": "^6.0.2",
