@@ -8,10 +8,10 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/">
+        <Route path="/" exact>
           <HomePage />
         </Route>
-        <Route path="/lists">
+        <Route path="/lists" exact>
           <ListsPage />
         </Route>
       </Switch>
