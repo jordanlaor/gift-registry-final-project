@@ -15,7 +15,7 @@ const Lists = () => {
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        New List
+        Create a New Gift List
       </Button>
       <CreateList open={open} onClose={handleClose} />
     </div>
