@@ -18,7 +18,6 @@ const ListItemSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // TODO add photo and name
   taker: {
     type: String,
     default: "",
@@ -37,8 +36,6 @@ const ListItemSchema = new mongoose.Schema({
 //   await item.save();
 //   return item;
 // };
-
-// TODO add is taken method
 
 // ListItemSchema.pre("save", async function (next) {
 //   const listItem = this;

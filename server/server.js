@@ -2,7 +2,8 @@ const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
 const path = require("path");
-const testRouter = require("./routes/test.route");
+const testRouter = require("./routes/test.router");
+const ownerRouter = require("./routes/owner.router");
 
 const app = express();
 app.use(express.json());
@@ -14,6 +15,7 @@ app.use(express.static(pubDir));
 require("./db/mongoose");
 
 // TODO add routers
+app.use("/api/owner", ownerRouter);
 app.use("/api/test", testRouter);
 
 // add default routing - 404 page
