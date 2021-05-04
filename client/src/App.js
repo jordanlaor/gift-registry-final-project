@@ -4,20 +4,21 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "./theme";
 import Router from "./components/Router/Router.component";
 import OwnerContext from "./contexts/OwnerContext";
-import ListContext from "./contexts/ListContext";
+import AppContext from "./contexts/AppContext";
 
 function App() {
   // TODO should be based on auth and start as null
   const [ownerId, setOwnerId] = useState("608fbbd12f6e9073c97ae094");
   const [listId, setListId] = useState();
+  const [mode, setMode] = useState(null);
   return (
     <ThemeProvider theme={theme}>
-      <ListContext.Provider value={{ listId, setListId }}>
+      <AppContext.Provider value={{ listId, setListId }}>
         <OwnerContext.Provider value={{ ownerId, setOwnerId }}>
           <CssBaseline />
           <Router />
         </OwnerContext.Provider>
-      </ListContext.Provider>
+      </AppContext.Provider>
     </ThemeProvider>
   );
 }

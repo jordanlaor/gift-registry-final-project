@@ -18,6 +18,7 @@ const Router = () => {
         <Route path="/iframe" exact>
           <Iframe />
         </Route>
+        {/* TODO add 404 */}
       </Switch>
     </BrowserRouter>
   );

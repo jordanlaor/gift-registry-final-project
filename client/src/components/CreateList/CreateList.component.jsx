@@ -8,18 +8,18 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import OwnerContext from "../../contexts/OwnerContext";
-import ListContext from "../../contexts/ListContext";
+import AppContext from "../../contexts/AppContext";
 
 const CreateList = (props) => {
   const ownerContext = useContext(OwnerContext);
-  const listContext = useContext(ListContext);
+  const appContext = useContext(AppContext);
 
   const handleCreate = async () => {
     try {
       const { data } = await axios.post("/api/owner/lists", { owner: ownerContext.ownerId, listName: name });
       // TODO add success handling
       console.log(data._id);
-      listContext.setListId = data._id;
+      appContext.setListId = data._id;
     } catch (error) {
       // TODO add error handling
       console.log(error);

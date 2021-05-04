@@ -4,6 +4,7 @@ const cors = require("cors");
 const path = require("path");
 const testRouter = require("./routes/test.router");
 const ownerRouter = require("./routes/owner.router");
+const listsRouter = require("./routes/lists.router");
 
 const app = express();
 app.use(express.json());
@@ -16,6 +17,7 @@ require("./db/mongoose");
 
 // TODO add routers
 app.use("/api/owner", ownerRouter);
+app.use("/api/lists", listsRouter);
 app.use("/api/test", testRouter);
 
 // add default routing - 404 page
