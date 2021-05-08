@@ -1,0 +1,7 @@
+iframe {
+  border: 0;
+  height: 400%;
+  width: calc(100% / 0.75);
+  transform: scale(0.75);
+  transform-origin: top left;
+}

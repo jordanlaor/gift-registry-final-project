@@ -1,0 +1,9 @@
+.url-box,
+.iframe-container {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+}
+
+.iframe-container {
+  display: grid !important;
+}

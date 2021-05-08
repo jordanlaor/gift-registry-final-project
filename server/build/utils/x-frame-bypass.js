@@ -80,8 +80,6 @@ customElements.define(
     fetchProxy(url, options, i) {
       const proxies = (options || {}).proxies || [
         "https://jordans-cors-anywhere.herokuapp.com/",
-        "https://cors-anywhere.herokuapp.com/",
-        "https://yacdn.org/proxy/",
         "https://api.codetabs.com/v1/proxy/?quest=",
       ];
       return fetch(proxies[i] + url, options)

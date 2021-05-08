@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import HomePage from "../../pages/Home/Home.page";
 
 import ListsPage from "../../pages/Lists/Lists.page";
-import Iframe from "../Iframe.component";
+import ListView from "../../pages/ListView/ListView.page";
 
 const Router = () => {
   return (
@@ -15,8 +15,8 @@ const Router = () => {
         <Route path="/lists" exact>
           <ListsPage />
         </Route>
-        <Route path="/iframe" exact>
-          <Iframe />
+        <Route path="/list" exact>
+          <ListView />
         </Route>
         {/* TODO add 404 */}
       </Switch>
