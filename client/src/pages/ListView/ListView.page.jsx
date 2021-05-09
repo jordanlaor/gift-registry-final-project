@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
@@ -23,6 +24,8 @@ const ListView = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const history = useHistory();
+
   // Adjust to both view and edit
 
   const renderListItems = () => {
@@ -39,12 +42,23 @@ const ListView = () => {
     ));
   };
 
+  const switchList = () => history.push("/lists");
+
+  const deleteList = async () => {
+    try {
+      const lists = await functions.deleteList(appContext.listId);
+      console.log(lists);
+      switchList();
+    } catch (error) {}
+  };
+
   useEffect(() => {
     const getListItems = async () => {
       setIsLoading(true);
       try {
         const data = await functions.getListItems(appContext.listId);
-        setItems(data);
+        console.log(data.listItems);
+        setItems(data.listItems);
       } catch (error) {
         // TODO add error handling
         console.log(error);
@@ -64,10 +78,10 @@ const ListView = () => {
           <div>{appContext.listName}</div>
           {appContext.mode === "owner" && (
             <div>
-              <ButtonGroup color="primary" aria-label="outlined primary button group">
+              <ButtonGroup aria-label="outlined primary button group">
                 {/* TODO add actions to the buttons */}
-                <Button>Delete List</Button>
-                <Button>Switch List</Button>
+                <Button onClick={deleteList}>Delete List</Button>
+                <Button onClick={switchList}>Switch List</Button>
               </ButtonGroup>
             </div>
           )}

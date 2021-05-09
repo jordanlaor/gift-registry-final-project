@@ -17,7 +17,6 @@ const Home = () => {
     try {
       if (code) {
         const { data } = await axios.get(`/api/lists/${code}`);
-
         console.log(data);
         appContext.setListId(code);
         appContext.setListName(data.listName);
