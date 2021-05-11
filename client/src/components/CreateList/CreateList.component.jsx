@@ -8,16 +8,21 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import AppContext from "../../contexts/AppContext";
+import { useHistory } from "react-router";
 
 const CreateList = (props) => {
   const appContext = useContext(AppContext);
+  const history = useHistory();
 
   const handleCreate = async () => {
     try {
       const { data } = await axios.post("/api/owner/lists", { owner: appContext.ownerId, listName: name });
       // TODO add success handling
+      console.log(appContext);
       console.log(data._id);
-      appContext.setListId = data._id;
+      appContext.setListId(data._id);
+      appContext.setListName(data.listName);
+      history.push("/list");
     } catch (error) {
       // TODO add error handling
       console.log(error);

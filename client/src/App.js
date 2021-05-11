@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";
+import { StylesProvider } from "@material-ui/core/styles";
+
 import theme from "./theme";
 import Router from "./components/Router/Router.component";
 import AppContext from "./contexts/AppContext";

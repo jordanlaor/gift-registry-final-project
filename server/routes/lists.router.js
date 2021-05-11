@@ -23,7 +23,6 @@ listsRouter.get("/:id", async (req, res) => {
     if (!list) return res.status(404).send("List not found");
     await list.populate({ path: "owner", select: "name image" }).execPopulate();
     await list.populate("listItems");
-    console.log(list);
     res.status(200).send(list);
   } catch (error) {
     // TODO fix error handling
@@ -32,19 +31,49 @@ listsRouter.get("/:id", async (req, res) => {
   }
 });
 
-listsRouter.delete("/:id", async (req, res) => {
-  try {
-    const lists = await List.deleteOne({ _id: req.params.id }, { new: true });
-    res.status(200).send(lists);
-  } catch (error) {}
-});
-
 listsRouter.delete("/:listId/:itemId", async (req, res) => {
   try {
     const list = await List.findById(req.params.listId);
     if (!list) res.status(404).send("List not found");
-    list.deleteItem(req.params.itemId);
-  } catch (error) {}
+    const filtered = await list.deleteItem(req.params.itemId);
+    console.log(req.params);
+    res.status(200).send(filtered);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+listsRouter.delete("/:id", async (req, res) => {
+  try {
+    const lists = await List.deleteOne({ _id: req.params.id }, { new: true });
+    res.status(200).send(lists);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+listsRouter.put("/:id", async (req, res) => {
+  try {
+    const list = await List.findById(req.params.id);
+    if (!list) res.status(404).send("List not found");
+    const listItems = await list.addItem(req.body);
+    // TODO move to pre save
+    res.status(201).send(listItems);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+listsRouter.patch("/:id", async (req, res) => {
+  try {
+    const list = await List.findById(req.params.id);
+    if (!list) res.status(404).send("List not found");
+    const listItems = await list.takeItem(req.body.itemId, req.body.gifter);
+    // TODO move to pre save
+    res.status(201).send(listItems);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 });
 
 module.exports = listsRouter;

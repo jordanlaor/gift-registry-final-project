@@ -47,7 +47,10 @@ ListSchema.methods.addItem = async function (item) {
 ListSchema.methods.deleteItem = async function (itemId) {
   try {
     const list = this;
-    list.listItems = list.listItems.filter((item) => item._id !== itemId);
+    list.listItems = list.listItems.filter((item) => {
+      console.log(item._id, itemId);
+      return item._id != itemId;
+    });
     await list.save();
     return list;
   } catch (error) {

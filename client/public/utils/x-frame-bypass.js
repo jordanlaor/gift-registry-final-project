@@ -17,8 +17,8 @@ customElements.define(
     }
     load(url, options) {
       if (!url || !url.startsWith("http")) throw new Error(`X-Frame-Bypass src ${url} does not start with http(s)://`);
-      this.actualURL = url;
-      console.log("X-Frame-Bypass loading:", this.actualURL);
+      this.dataset.actualurl = url;
+      console.log("X-Frame-Bypass loading:", this.dataset.actualurl);
       this.srcdoc = `<html>
 <head>
 	<style>
