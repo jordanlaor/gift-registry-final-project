@@ -6,6 +6,11 @@ const ListOwnerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  firstName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   email: {
     type: String,
     unique: true,
@@ -23,6 +28,10 @@ const ListOwnerSchema = new mongoose.Schema({
     // "https://scontent.fsdv1-2.fna.fbcdn.net/v/t1.18169-9/1450290_491091230988565_2094896869_n.png?_nc_cat=104&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=VMMlVGiBYowAX_NlTON&_nc_ht=scontent.fsdv1-2.fna&oh=1b70bd96056c4d489e636cf910e11605&oe=60B5D6A0",
 
     // TODO add image link validation
+  },
+  userToken: {
+    type: String,
+    required: true,
   },
   lists: [
     {

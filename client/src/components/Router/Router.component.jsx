@@ -8,6 +8,7 @@ import HomePage from "../../pages/Home/Home.page";
 import ListsPage from "../../pages/Lists/Lists.page";
 import ListView from "../../pages/ListView/ListView.page";
 import Href from "../href";
+import SignIn from "../SignIn/SignIn.component";
 
 const Router = () => {
   const appContext = useContext(AppContext);
@@ -27,8 +28,8 @@ const Router = () => {
         <Route path="/list/:id" exact>
           <GifterListLoader />
         </Route>
-        <Route path="/href" exact>
-          <Href />
+        <Route path="/log" exact>
+          <SignIn />
         </Route>
         {/* TODO add 404 */}
       </Switch>

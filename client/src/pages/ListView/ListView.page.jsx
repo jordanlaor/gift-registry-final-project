@@ -70,7 +70,9 @@ const ListView = () => {
       const lists = await functions.deleteList(appContext.listId);
       console.log(lists);
       switchList();
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getListItems = async () => {

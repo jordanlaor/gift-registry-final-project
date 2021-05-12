@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import Button from "@material-ui/core/Button";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 
 import CreateList from "../../components/CreateList/CreateList.component";
 import functions from "../../functions/functions";
@@ -24,6 +26,16 @@ const Lists = () => {
     setOpen(false);
   };
 
+  const deleteList = async (listId) => {
+    try {
+      const lists = await functions.deleteList(listId);
+      console.log(lists);
+      getLists();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const renderLists = () => {
     return lists.map((list) => (
       <ListItem
@@ -37,23 +49,29 @@ const Lists = () => {
         }}
       >
         <ListItemText primary={list.listName} />
+        <ListItemSecondaryAction>
+          <Button variant="contained" onClick={() => deleteList(list._id)}>
+            Delete
+          </Button>
+        </ListItemSecondaryAction>
       </ListItem>
     ));
   };
 
+  const getLists = async () => {
+    setIsLoading(true);
+    try {
+      const data = await functions.getOwnerLists();
+      setLists(data);
+    } catch (error) {
+      // TODO add error handling
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const getLists = async () => {
-      setIsLoading(true);
-      try {
-        const data = await functions.getOwnerLists();
-        setLists(data);
-      } catch (error) {
-        // TODO add error handling
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
     getLists();
   }, []);
 
