@@ -6,6 +6,8 @@ const testRouter = require("./routes/test.router");
 const ownerRouter = require("./routes/owner.router");
 const listsRouter = require("./routes/lists.router");
 const callbackRouter = require("./routes/callback.router");
+const bodyParser = require("body-parser");
+const userRouter = require("./routes/user.router");
 
 const app = express();
 app.use(express.json());
@@ -19,8 +21,12 @@ require("./db/mongoose");
 // TODO add routers
 app.use("/api/owner", ownerRouter);
 app.use("/api/lists", listsRouter);
-app.use("/api/callback", callbackRouter);
+app.use("/api/user", userRouter);
 app.use("/api/test", testRouter);
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use("/api/callback", callbackRouter);
 
 // add default routing - 404 page
 // TODO figure out how errors should look like

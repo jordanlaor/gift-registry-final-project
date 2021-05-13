@@ -17,9 +17,6 @@ const Router = () => {
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
-          <HomePage />
-        </Route>
-        <Route path="/lists" exact>
           <ListsPage />
         </Route>
         <Route path="/list" exact>
@@ -28,8 +25,11 @@ const Router = () => {
         <Route path="/list/:id" exact>
           <GifterListLoader />
         </Route>
-        <Route path="/log" exact>
-          <SignIn />
+        <Route path="/list/:id/token/:token" exact>
+          <GifterListLoader />
+        </Route>
+        <Route path="/token/:token" exact>
+          <ListsPage />
         </Route>
         {/* TODO add 404 */}
       </Switch>

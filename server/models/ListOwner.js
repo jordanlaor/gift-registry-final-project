@@ -29,10 +29,6 @@ const ListOwnerSchema = new mongoose.Schema({
 
     // TODO add image link validation
   },
-  userToken: {
-    type: String,
-    required: true,
-  },
   lists: [
     {
       type: mongoose.Schema.Types.ObjectId,

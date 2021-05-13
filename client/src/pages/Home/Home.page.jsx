@@ -1,16 +1,18 @@
 import React, { useContext, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
 import AppContext from "../../contexts/AppContext";
 import axios from "axios";
+import SignIn from "../../components/SignIn/SignIn.component";
 
 const Home = () => {
   const [code, setCode] = useState("");
   const appContext = useContext(AppContext);
   const history = useHistory();
+  const params = useParams();
 
   const goToList = async () => {
     appContext.setMode("gifter");
@@ -32,6 +34,11 @@ const Home = () => {
     // TODO create the function
   };
 
+  useState(() => {
+    if (params.token) {
+    }
+  }, []);
+
   const goToListManagement = () => {
     // TODO write the function
     appContext.setMode("owner");
@@ -39,17 +46,21 @@ const Home = () => {
   };
   return (
     <div>
-      <Box>
-        <Button variant="contained" onClick={goToListManagement}>
-          Go to my lists
-        </Button>
-      </Box>
-      <Box>
+      {appContext.ownerId ? (
+        <Box>
+          <Button variant="contained" onClick={goToListManagement}>
+            Go to my lists
+          </Button>
+        </Box>
+      ) : (
+        <SignIn />
+      )}
+      {/* <Box>
         <TextField id="code" label="List's code" value={code} onChange={(e) => setCode(e.target.value)} variant="outlined" />
         <Button variant="contained" onClick={goToList}>
           Go
         </Button>
-      </Box>
+      </Box> */}
     </div>
   );
 };

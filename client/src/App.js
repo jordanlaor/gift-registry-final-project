@@ -9,12 +9,13 @@ import AppContext from "./contexts/AppContext";
 
 function App() {
   // TODO should be based on auth and start as null
-  const [ownerId, setOwnerId] = useState("608fbbd12f6e9073c97ae094");
+  const [token, setToken] = useState();
+  const [ownerId, setOwnerId] = useState();
   const [ownerName, setOwnerName] = useState();
   const [ownerAvatar, setOwnerAvatar] = useState();
+  const [ownerLists, setOwnerLists] = useState();
   const [listId, setListId] = useState();
   const [listName, setListName] = useState();
-  const [mode, setMode] = useState(null);
   return (
     <ThemeProvider theme={theme}>
       <AppContext.Provider
@@ -23,14 +24,16 @@ function App() {
           setListId,
           listName,
           setListName,
-          mode,
-          setMode,
+          token,
+          setToken,
           ownerId,
           setOwnerId,
           ownerName,
           setOwnerName,
           ownerAvatar,
           setOwnerAvatar,
+          ownerLists,
+          setOwnerLists,
         }}
       >
         <CssBaseline />

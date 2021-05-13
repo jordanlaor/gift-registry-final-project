@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link, useHistory, useParams } from "react-router-dom";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { Link } from "react-router-dom";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -12,12 +12,16 @@ import CreateList from "../../components/CreateList/CreateList.component";
 import functions from "../../functions/functions";
 import AppContext from "../../contexts/AppContext";
 import Nav from "../../components/Nav/Nav.component";
+import SignIn from "../../components/SignIn/SignIn.component";
+import axios from "axios";
 
 const Lists = () => {
   const [open, setOpen] = useState(false);
   const [lists, setLists] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const appContext = useContext(AppContext);
+  const params = useParams();
+  const history = useHistory();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -71,18 +75,36 @@ const Lists = () => {
     }
   };
 
-  useEffect(() => {
-    getLists();
-  }, []);
+  const getUserData = async () => {
+    try {
+      const { data } = await axios.get(`/api/user/${params.token}`);
+      appContext.setOwnerId(data._id);
+      appContext.setOwnerAvatar(data.image);
+      appContext.setOwnerName(data.name);
+      appContext.setOwnerLists(data.lists);
+    } catch (error) {
+      console.log(error.data);
+      history.push("/");
+    }
+  };
 
+  useEffect(() => {
+    if (appContext.ownerId) getLists();
+  }, [appContext.ownerId]);
+
+  useEffect(() => {
+    if (params.token) {
+      getUserData();
+    }
+  }, []);
   return (
     <div>
-      <Nav></Nav>
+      <Nav />
       {isLoading ? (
         <Backdrop open={isLoading}>
           <CircularProgress color="inherit" />
         </Backdrop>
-      ) : (
+      ) : appContext.ownerId ? (
         <>
           <List component="nav">
             {renderLists()}
@@ -92,6 +114,8 @@ const Lists = () => {
           </List>
           <CreateList open={open} onClose={handleClose} />
         </>
+      ) : (
+        <SignIn />
       )}
     </div>
   );

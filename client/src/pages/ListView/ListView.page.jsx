@@ -49,7 +49,7 @@ const ListView = () => {
           </ListItemAvatar>
           <ListItemText primary={item.itemName} />
         </ListItem>
-        <ListItem button>
+        <ListItem>
           <Button
             disabled={appContext.mode === "gifter" && item.taker.length}
             onClick={appContext.mode === "owner" ? () => deleteItem(item._id) : () => takeItem(item._id)}
