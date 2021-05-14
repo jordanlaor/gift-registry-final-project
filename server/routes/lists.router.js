@@ -68,7 +68,7 @@ listsRouter.patch("/:id", async (req, res) => {
   try {
     const list = await List.findById(req.params.id);
     if (!list) res.status(404).send("List not found");
-    const listItems = await list.takeItem(req.body.itemId, req.body.gifter);
+    const listItems = await list.takeItem(req.body.itemId, req.body.userId);
     // TODO move to pre save
     res.status(201).send(listItems);
   } catch (error) {

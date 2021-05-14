@@ -66,11 +66,12 @@ ListSchema.methods.takeItem = async function (itemId, userId) {
     const item = list.listItems.id(itemId);
     // const item = list.listItems.find((item) => item._id === itemId);
     if (!item) throw "No such item";
-    item.taker = userId;
+    debugger;
+    item.taker = userId || null;
     await list.save();
     return list;
   } catch (error) {
-    console.log(error);
+    console.dir(error);
     throw error;
   }
 };
