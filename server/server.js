@@ -31,9 +31,8 @@ app.use("/api/callback", callbackRouter);
 // add default routing - 404 page
 // TODO figure out how errors should look like
 app.use("/:anything", express.static(pubDir));
-app.use((req, res) => {
-  res.status(404).send({ error: "no such request" });
-});
+
+app.get("/", (req, res) => res.sendFile(path.join(pubDir, "index.html")));
 
 // start listening
 const port = process.env.PORT;
