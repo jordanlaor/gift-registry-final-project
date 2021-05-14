@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
 import { useHistory } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
@@ -25,6 +26,10 @@ const ListView = () => {
   const [srcInput, setSrcInput] = useState(src);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const iframeWrapperRef = useRef(null);
+  const listWrapperRef = useRef(null);
+  const [iframeHeight, setIframeHeight] = useState(0);
+  const [listHeight, setListHeight] = useState(0);
 
   const history = useHistory();
 
@@ -101,15 +106,29 @@ const ListView = () => {
 
       await getListItems();
     } catch (error) {
-      console.dir(error);
+      console.log(error);
     }
   };
+
+  const setIframeHeightFunc = () => {
+    resetListHeight();
+    setIframeHeight(() => window.getComputedStyle(ReactDOM.findDOMNode(iframeWrapperRef.current)).height);
+  };
+
+  const resetListHeight = () => setListHeight(() => 0);
 
   useEffect(() => {
     getListItems();
   }, []);
 
   useEffect(() => setSrcInput(src), [src]);
+
+  useEffect(() => {
+    window.addEventListener("resize", setIframeHeightFunc);
+  }, []);
+
+  useEffect(() => setIframeHeightFunc(), [iframeWrapperRef]);
+  useEffect(() => setListHeight(() => iframeHeight), [iframeHeight]);
 
   return (
     <>
@@ -127,36 +146,40 @@ const ListView = () => {
           }
         </div>
       </Nav>
-      <Box className="url-box">
-        <TextField
-          id="urlBar"
-          label="url"
-          style={{ margin: 8 }}
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="outlined"
-          value={srcInput}
-          onChange={(e) => setSrcInput(e.target.value)}
-        />
-        <IconButton aria-label="search" onClick={() => setSrc(srcInput)}>
-          <i class="fas fa-search"></i>
-        </IconButton>
-      </Box>
-      <div className="iframe-container">
-        <div ref={iframeRef}>
-          <Iframe src={src} />
-          {/* <div data-actualURL="https://ksp.co.il/web/item/97638">DIVVVVVV</div> */}
+      <div className="page page-list-view">
+        <Box className="url-box">
+          <TextField
+            id="urlBar"
+            label="url"
+            style={{ margin: 8 }}
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="outlined"
+            value={srcInput}
+            onChange={(e) => setSrcInput(e.target.value)}
+          />
+          <IconButton aria-label="search" onClick={() => setSrc(srcInput)}>
+            <i class="fas fa-search"></i>
+          </IconButton>
+        </Box>
+        <div className="iframe-container" ref={iframeWrapperRef}>
+          <div ref={iframeRef} className="iframe-wrapper">
+            <Iframe src={src} />
+            {/* <div data-actualURL="https://ksp.co.il/web/item/97638">DIVVVVVV</div> */}
+          </div>
+          <div className="iframe-add-nav-btn-wrap">
+            <button className="iframe-add-nav-btn" onClick={addItem} disabled={isLoading}>
+              <i class="fas fa-plus"></i>
+              Add to List
+            </button>
+          </div>
+          <div className="list-view-list-wrapper" style={{ height: listHeight }} ref={listWrapperRef}>
+            <List component="nav">{renderListItems()}</List>
+          </div>
         </div>
-        <div className="iframe-add-nav-btn-wrap">
-          <button className="iframe-add-nav-btn" onClick={addItem} disabled={isLoading}>
-            <i class="fas fa-plus"></i>
-            Add to List
-          </button>
-        </div>
-        <List component="nav">{renderListItems()}</List>
       </div>
     </>
   );

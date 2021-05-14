@@ -17,7 +17,7 @@ const Router = () => {
           <ListsPage />
         </Route>
         <Route path="/list" exact>
-          <ListView />
+          {appContext.userId && appContext.listId ? <ListView /> : <Redirect path="/" />}
         </Route>
         <Route path="/list/:id" exact>
           <GifterListPage />

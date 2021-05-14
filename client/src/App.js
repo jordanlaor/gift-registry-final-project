@@ -7,6 +7,8 @@ import theme from "./theme";
 import Router from "./components/Router/Router.component";
 import AppContext from "./contexts/AppContext";
 
+import "./App.css";
+
 function App() {
   // TODO should be based on auth and start as null
   const [token, setToken] = useState();

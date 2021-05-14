@@ -97,7 +97,6 @@ const Lists = () => {
   }, [appContext.ownerId]);
 
   useEffect(() => {
-    debugger;
     if (search.get("page")) {
       history.push(`${search.get("page")}?token=${search.get("token")}`);
     }
