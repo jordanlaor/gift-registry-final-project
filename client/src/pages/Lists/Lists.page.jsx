@@ -78,7 +78,7 @@ const Lists = () => {
 
   const getUserData = async () => {
     try {
-      const { data } = await axios.get(`/api/user/${params.token}`);
+      const { data } = await axios.get(`/api/user/${search.get("token")}`);
       appContext.setOwnerId(data._id);
       appContext.setUserId(data._id);
       appContext.setOwnerAvatar(data.image);
