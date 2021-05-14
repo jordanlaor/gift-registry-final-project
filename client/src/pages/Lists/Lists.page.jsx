@@ -99,10 +99,11 @@ const Lists = () => {
   useEffect(() => {
     if (search.get("page")) {
       history.push(`${search.get("page")}?token=${search.get("token")}`);
-    }
-    if (search.get("token")) {
-      getUserData();
-      history.push(history.location.pathname);
+    } else {
+      if (search.get("token")) {
+        getUserData();
+        history.push(history.location.pathname);
+      }
     }
   }, []);
   return (
