@@ -65,7 +65,7 @@ const Lists = () => {
   const getLists = async () => {
     setIsLoading(true);
     try {
-      const data = await functions.getOwnerLists();
+      const data = await functions.getOwnerLists(appContext.ownerId);
       setLists(data);
     } catch (error) {
       // TODO add error handling
@@ -84,6 +84,7 @@ const Lists = () => {
       appContext.setOwnerLists(data.lists);
     } catch (error) {
       console.log(error.data);
+    } finally {
       history.push("/");
     }
   };
@@ -107,7 +108,7 @@ const Lists = () => {
       ) : appContext.ownerId ? (
         <>
           <List component="nav">
-            {renderLists()}
+            {lists.length ? renderLists() : ""}
             <ListItem button onClick={handleClickOpen}>
               <ListItemText primary="Create a New Gift List" />
             </ListItem>

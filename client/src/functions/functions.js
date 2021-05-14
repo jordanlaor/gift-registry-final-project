@@ -28,9 +28,9 @@ const functions = {
       throw error;
     }
   },
-  getOwnerLists: async () => {
+  getOwnerLists: async (ownerId) => {
     try {
-      const { data } = await axios.get(`/api/lists/`);
+      const { data } = await axios.get(`/api/lists/`, { headers: { Authorization: `Bearer ${ownerId}` } });
       return data;
     } catch (error) {
       // TODO error handling

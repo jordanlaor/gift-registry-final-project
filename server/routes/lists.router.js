@@ -6,8 +6,8 @@ const listsRouter = new express.Router();
 
 listsRouter.get("/", async (req, res) => {
   // FIXME find by owner and not all
-  const owner = "608fbbd12f6e9073c97ae094";
   try {
+    const owner = req.header("Authorization").replace("Bearer ", "");
     const lists = await List.find({ owner });
     res.status(200).send(lists);
   } catch (error) {

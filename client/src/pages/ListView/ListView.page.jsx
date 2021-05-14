@@ -20,13 +20,11 @@ import "./listView.css";
 
 const ListView = () => {
   const appContext = useContext(AppContext);
-  const srcs = ["https://www.amazon.com/"];
   const iframeRef = useRef(null);
-  const [src, setSrc] = useState(srcs[0]);
+  const [src, setSrc] = useState("https://www.amazon.com/");
   const [srcInput, setSrcInput] = useState(src);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [gifter, setGifter] = useState("John Doe");
 
   const history = useHistory();
 
@@ -50,12 +48,8 @@ const ListView = () => {
           <ListItemText primary={item.itemName} />
         </ListItem>
         <ListItem>
-          <Button
-            disabled={appContext.mode === "gifter" && item.taker.length}
-            onClick={appContext.mode === "owner" ? () => deleteItem(item._id) : () => takeItem(item._id)}
-            className="btn"
-          >
-            {appContext.mode === "owner" ? "Delete Item" : "Gift This"}
+          <Button onClick={() => deleteItem(item._id)} className="btn">
+            {"Delete Item"}
           </Button>
         </ListItem>
         <Divider />
@@ -63,7 +57,7 @@ const ListView = () => {
     ));
   };
 
-  const switchList = () => history.push("/lists");
+  const switchList = () => history.push("/");
 
   const deleteList = async () => {
     try {
@@ -111,18 +105,6 @@ const ListView = () => {
     }
   };
 
-  const takeItem = async (itemId) => {
-    debugger;
-    if (!gifter.length) setGifter("John Doe");
-    try {
-      const res = await functions.takeItem(gifter, appContext.listId, itemId);
-
-      await getListItems();
-    } catch (error) {
-      console.dir(error);
-    }
-  };
-
   useEffect(() => {
     getListItems();
   }, []);
@@ -134,7 +116,7 @@ const ListView = () => {
       <Nav>
         <div className={"nav-list-section"}>
           <div>{appContext.listName}</div>
-          {appContext.mode === "owner" && (
+          {
             <div>
               <ButtonGroup aria-label="outlined primary button group">
                 {/* TODO add actions to the buttons */}
@@ -142,30 +124,26 @@ const ListView = () => {
                 <Button onClick={switchList}>Switch List</Button>
               </ButtonGroup>
             </div>
-          )}
+          }
         </div>
       </Nav>
       <Box className="url-box">
-        {appContext.mode === "owner" && (
-          <>
-            <TextField
-              id="urlBar"
-              label="url"
-              style={{ margin: 8 }}
-              fullWidth
-              margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="outlined"
-              value={srcInput}
-              onChange={(e) => setSrcInput(e.target.value)}
-            />
-            <IconButton aria-label="search" onClick={() => setSrc(srcInput)}>
-              <i class="fas fa-search"></i>
-            </IconButton>
-          </>
-        )}
+        <TextField
+          id="urlBar"
+          label="url"
+          style={{ margin: 8 }}
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
+          value={srcInput}
+          onChange={(e) => setSrcInput(e.target.value)}
+        />
+        <IconButton aria-label="search" onClick={() => setSrc(srcInput)}>
+          <i class="fas fa-search"></i>
+        </IconButton>
       </Box>
       <div className="iframe-container">
         <div ref={iframeRef}>
@@ -173,31 +151,12 @@ const ListView = () => {
           {/* <div data-actualURL="https://ksp.co.il/web/item/97638">DIVVVVVV</div> */}
         </div>
         <div className="iframe-add-nav-btn-wrap">
-          {appContext.mode === "owner" ? (
-            <button className="iframe-add-nav-btn" onClick={addItem}>
-              <i class="fas fa-plus"></i>
-              Add to List
-            </button>
-          ) : (
-            <a
-              href={iframeRef?.current?.firstElementChild?.dataset?.actualurl || ""}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="navigate-link"
-            >
-              <button className="iframe-add-nav-btn">
-                <i class="fas fa-location-arrow"></i>
-                Navigate
-              </button>
-            </a>
-          )}
+          <button className="iframe-add-nav-btn" onClick={addItem}>
+            <i class="fas fa-plus"></i>
+            Add to List
+          </button>
         </div>
-        <List component="nav">
-          {appContext.mode === "gifter" && (
-            <TextField id="outlined-basic" label="Name" variant="outlined" value={gifter} onChange={(e) => setGifter(e.target.value)} />
-          )}
-          {renderListItems()}
-        </List>
+        <List component="nav">{renderListItems()}</List>
       </div>
     </>
   );
