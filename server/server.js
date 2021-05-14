@@ -31,7 +31,10 @@ app.use("/api/callback", callbackRouter);
 // add default routing - 404 page
 // TODO figure out how errors should look like
 
-app.get("/", (req, res) => res.sendFile(path.join(pubDir, "index.html")));
+app.use("/", (req, res) => {
+  console.log(path.join(pubDir, "index.html"));
+  res.sendFile(path.join(pubDir, "index.html"));
+});
 
 // start listening
 const port = process.env.PORT;
