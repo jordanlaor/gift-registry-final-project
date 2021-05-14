@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { useHistory, useParams } from "react-router";
+import { useHistory, useLocation, useParams } from "react-router";
 import axios from "axios";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -18,6 +18,7 @@ import functions from "../../functions/functions";
 
 const GifterListLoader = () => {
   const history = useHistory();
+  const search = new URLSearchParams(useLocation().search);
   const params = useParams();
   const appContext = useContext(AppContext);
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +26,7 @@ const GifterListLoader = () => {
 
   const getUserData = async () => {
     try {
-      const { data } = await axios.get(`/api/user/${params.token}`);
+      const { data } = await axios.get(`/api/user/${search.get("token")}`);
       appContext.setUserId(data._id);
       appContext.setUserAvatar(data.image);
       appContext.setUserName(data.name);
@@ -58,7 +59,7 @@ const GifterListLoader = () => {
   }, []);
 
   useEffect(() => {
-    if (params.token) {
+    if (search.get("token")) {
       getUserData();
     }
   }, []);
@@ -104,7 +105,7 @@ const GifterListLoader = () => {
             <Button disabled={item.taker} onClick={() => giftItem(item._id)} className="btn">
               Gift This
             </Button>
-            <Button component={Link} target="_blank" href={item.link}>
+            <Button component={Link} underline="none" target="_blank" href={item.link}>
               Go Here
             </Button>
           </ButtonGroup>
