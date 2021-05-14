@@ -18,6 +18,9 @@ app.use(express.static(pubDir));
 
 require("./db/mongoose");
 
+app.get("/something", (req, res) => {
+  console.log(req, res);
+});
 // TODO add routers
 app.use("/api/owner", ownerRouter);
 app.use("/api/lists", listsRouter);
@@ -31,7 +34,7 @@ app.use("/api/callback", callbackRouter);
 // add default routing - 404 page
 // TODO figure out how errors should look like
 app.use((req, res) => {
-  res.status(404).send({ error: "no such request" });
+  res.status(301).redirect(`${window.location.origin}?page=${req.path}`);
 });
 
 // start listening
