@@ -97,11 +97,13 @@ const Lists = () => {
   }, [appContext.ownerId]);
 
   useEffect(() => {
+    debugger;
     if (search.get("page")) {
-      return history.push(`${search.get("page")}?token=${search.get("token")}`);
+      history.push(`${search.get("page")}?token=${search.get("token")}`);
     }
     if (search.get("token")) {
       getUserData();
+      history.push(history.location.pathname);
     }
   }, []);
   return (

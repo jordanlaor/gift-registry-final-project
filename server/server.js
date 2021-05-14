@@ -32,7 +32,6 @@ app.use("/api/callback", callbackRouter);
 // TODO figure out how errors should look like
 
 app.use("/", (req, res) => {
-  console.log(path.join(pubDir, "index.html"));
   res.sendFile(path.join(pubDir, "index.html"));
 });
 
