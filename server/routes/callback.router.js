@@ -8,10 +8,7 @@ const callbackRouter = new express.Router();
 callbackRouter.post("/", async (req, res) => {
   // TODO add auth
   try {
-    const url =
-      req.query.redirect[req.query.redirect.length - 1] === "/"
-        ? req.query.redirect + `token/${req.body.connection_token}`
-        : req.query.redirect + `/token/${req.body.connection_token}`;
+    const url = req.query.redirect + `?token=${req.body.connection_token}&redirect=${req.query.page}`;
     res.redirect(url);
   } catch (error) {
     console.log(error);

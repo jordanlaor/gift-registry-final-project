@@ -22,12 +22,12 @@ const Router = () => {
         <Route path="/list/:id" exact>
           <GifterListPage />
         </Route>
-        <Route path="/list/:id/token/:token" exact>
+        {/* <Route path="/list/:id/token/:token" exact>
           <GifterListPage />
         </Route>
         <Route path="/token/:token" exact>
           <ListsPage />
-        </Route>
+        </Route> */}
         {/* TODO add 404 */}
       </Switch>
     </BrowserRouter>

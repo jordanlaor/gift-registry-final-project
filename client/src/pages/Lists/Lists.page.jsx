@@ -96,6 +96,10 @@ const Lists = () => {
   }, [appContext.ownerId]);
 
   useEffect(() => {
+    debugger;
+    if (params.page) {
+      return history.push(`${params.page}?token=${params.token}`);
+    }
     if (params.token) {
       getUserData();
     }
