@@ -1,14 +1,11 @@
 import axios from "axios";
 import React, { useContext } from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import GifterListLoader from "../GifterListLoader/GifterListLoader.component";
-import AppContext from "../../contexts/AppContext";
-import HomePage from "../../pages/Home/Home.page";
 
+import GifterListPage from "../../pages/GifterList/GifterList.page";
+import AppContext from "../../contexts/AppContext";
 import ListsPage from "../../pages/Lists/Lists.page";
 import ListView from "../../pages/ListView/ListView.page";
-import Href from "../href";
-import SignIn from "../SignIn/SignIn.component";
 
 const Router = () => {
   const appContext = useContext(AppContext);
@@ -23,10 +20,10 @@ const Router = () => {
           <ListView />
         </Route>
         <Route path="/list/:id" exact>
-          <GifterListLoader />
+          <GifterListPage />
         </Route>
         <Route path="/list/:id/token/:token" exact>
-          <GifterListLoader />
+          <GifterListPage />
         </Route>
         <Route path="/token/:token" exact>
           <ListsPage />

@@ -19,8 +19,9 @@ const ListItemSchema = new mongoose.Schema({
     required: true,
   },
   taker: {
-    type: String,
-    default: "",
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "ListOwner",
+    default: null,
   },
   // list: {
   //   type: mongoose.Schema.Types.ObjectId,

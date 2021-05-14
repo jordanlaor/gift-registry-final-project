@@ -11,9 +11,11 @@ function App() {
   // TODO should be based on auth and start as null
   const [token, setToken] = useState();
   const [ownerId, setOwnerId] = useState();
+  const [userId, setUserId] = useState();
   const [ownerName, setOwnerName] = useState();
+  const [userName, setUserName] = useState();
   const [ownerAvatar, setOwnerAvatar] = useState();
-  const [ownerLists, setOwnerLists] = useState();
+  const [userAvatar, setUserAvatar] = useState();
   const [listId, setListId] = useState();
   const [listName, setListName] = useState();
   return (
@@ -28,12 +30,16 @@ function App() {
           setToken,
           ownerId,
           setOwnerId,
+          userId,
+          setUserId,
           ownerName,
           setOwnerName,
+          userName,
+          setUserName,
           ownerAvatar,
           setOwnerAvatar,
-          ownerLists,
-          setOwnerLists,
+          userAvatar,
+          setUserAvatar,
         }}
       >
         <CssBaseline />

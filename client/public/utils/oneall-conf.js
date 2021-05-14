@@ -1,3 +1,10 @@
+// var oa = document.createElement("script");
+// oa.type = "text/javascript";
+// oa.async = true;
+// oa.src = "//final-project-gift-registry.api.oneall.com/socialize/library.js";
+// var s = document.getElementsByTagName("script")[0];
+// s.parentNode.insertBefore(oa, s);
+
 var _oneall = _oneall || [];
 _oneall.push([
   "social_login",

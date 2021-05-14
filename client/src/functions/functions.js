@@ -82,9 +82,9 @@ const functions = {
     const item = { link: src, imageLink: imgHTML[1], itemName: titleHTML[1] };
     return item;
   },
-  takeItem: async (gifter, listId, itemId) => {
+  giftItem: async (userId, listId, itemId) => {
     try {
-      const { data } = await axios.patch(`/api/lists/${listId}`, { gifter, itemId });
+      const { data } = await axios.patch(`/api/lists/${listId}`, { userId, itemId });
       return data;
     } catch (error) {
       // TODO error handling

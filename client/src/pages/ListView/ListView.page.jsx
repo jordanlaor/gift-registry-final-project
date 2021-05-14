@@ -49,7 +49,7 @@ const ListView = () => {
         </ListItem>
         <ListItem>
           <Button onClick={() => deleteItem(item._id)} className="btn">
-            {"Delete Item"}
+            Delete Item
           </Button>
         </ListItem>
         <Divider />
@@ -83,15 +83,15 @@ const ListView = () => {
   };
 
   const addItem = async () => {
-    debugger;
+    setIsLoading(true);
     try {
       const item = await functions.createItem(iframeRef.current.firstElementChild.dataset.actualurl);
-      console.log(item);
       const items = await functions.addItemToList(appContext.listId, item);
-      console.log(items);
       await getListItems();
     } catch (error) {
       console.dir(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -151,7 +151,7 @@ const ListView = () => {
           {/* <div data-actualURL="https://ksp.co.il/web/item/97638">DIVVVVVV</div> */}
         </div>
         <div className="iframe-add-nav-btn-wrap">
-          <button className="iframe-add-nav-btn" onClick={addItem}>
+          <button className="iframe-add-nav-btn" onClick={addItem} disabled={isLoading}>
             <i class="fas fa-plus"></i>
             Add to List
           </button>

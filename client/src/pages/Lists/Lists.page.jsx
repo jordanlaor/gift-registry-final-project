@@ -79,9 +79,11 @@ const Lists = () => {
     try {
       const { data } = await axios.get(`/api/user/${params.token}`);
       appContext.setOwnerId(data._id);
+      appContext.setUserId(data._id);
       appContext.setOwnerAvatar(data.image);
+      appContext.setUserAvatar(data.image);
       appContext.setOwnerName(data.name);
-      appContext.setOwnerLists(data.lists);
+      appContext.setUserName(data.name);
     } catch (error) {
       console.log(error.data);
     } finally {
