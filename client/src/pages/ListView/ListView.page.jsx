@@ -10,9 +10,11 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Avatar from "@material-ui/core/Avatar";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import { ListItemText } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import TextClamp from "react-string-clamp";
-import { Link } from "react-router-dom";
+import Link from "@material-ui/core/Link";
+import { makeStyles } from "@material-ui/core/styles";
 
 import AppContext from "../../contexts/AppContext";
 import Nav from "../../components/Nav/Nav.component";
@@ -35,14 +37,30 @@ const ListView = () => {
 
   const history = useHistory();
 
+  const useStyles = makeStyles((theme) => ({
+    small: {
+      width: theme.spacing(3),
+      height: theme.spacing(3),
+      margin: 0,
+    },
+    avatarCenter: {
+      margin: 0,
+    },
+    gifter: {
+      display: "flex",
+      alignItems: "center",
+    },
+  }));
+
+  const classes = useStyles();
+
   // Adjust to both view and edit
 
   const renderListItems = () => {
     return items.map((item) => (
-      <List>
+      <List key={item._id}>
         <ListItem
           button
-          key={item._id}
           alignItems="flex-start"
           onClick={(e) => {
             if (!e.target.classList.contains("btn")) setSrc(item.link);
@@ -50,10 +68,18 @@ const ListView = () => {
           }}
         >
           <ListItemAvatar>
-            <Avatar alt={item.itemName} src={item.imageLink} />
+            <Avatar variant="rounded" alt={item.itemName} src={item.imageLink} />
           </ListItemAvatar>
-          <TextClamp lines={3} text={item.itemName} className="gift-list-item-text" />
+          <TextClamp lines={2} text={item.itemName} className="gift-list-item-text" />
         </ListItem>
+        {item.taker?._id && (
+          <ListItem alignItems="flex-start" className={classes.gifter}>
+            <ListItemAvatar className={classes.avatarCenter}>
+              <Avatar variant="rounded" alt={item.taker.firstName} src={item.taker.image} className={classes.small} />
+            </ListItemAvatar>
+            <ListItemText secondary={`Gifter: ${item.taker.firstName}`} />
+          </ListItem>
+        )}
         <ListItem>
           <Button onClick={() => deleteItem(item._id)} className="btn">
             Delete Item
@@ -137,7 +163,7 @@ const ListView = () => {
   return (
     <>
       <Nav>
-        <Button color="inherit" component={Link} to="/">
+        <Button color="inherit" component={Link} href={window.location.origin}>
           My Lists
         </Button>
         <div className={"nav-list-section"}>

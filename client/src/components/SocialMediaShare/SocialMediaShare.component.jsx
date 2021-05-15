@@ -5,7 +5,7 @@ import "./socialMediaShare.css";
 const SocialMediaShare = (props) => {
   const { shareLink, shareText } = props;
   return (
-    <div>
+    <div className="social-media-share-wrapper">
       {/* <a
         class="resp-sharing-button__link"
         href={`https://facebook.com/sharer/sharer.php?u=${shareLink}`}
@@ -92,7 +92,7 @@ const SocialMediaShare = (props) => {
       </a>
 
       <div class="resp-sharing-button__link" aria-label="Copy Link" onClick={() => copy(shareLink)}>
-        <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--large">
+        <div class="resp-sharing-button resp-sharing-button--regular resp-sharing-button--large">
           <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
               <path d="M13.757 19.868c-0.416 0-0.832-0.159-1.149-0.476-2.973-2.973-2.973-7.81 0-10.783l6-6c1.44-1.44 3.355-2.233 5.392-2.233s3.951 0.793 5.392 2.233c2.973 2.973 2.973 7.81 0 10.783l-2.743 2.743c-0.635 0.635-1.663 0.635-2.298 0s-0.635-1.663 0-2.298l2.743-2.743c1.706-1.706 1.706-4.481 0-6.187-0.826-0.826-1.925-1.281-3.094-1.281s-2.267 0.455-3.094 1.281l-6 6c-1.706 1.706-1.706 4.481 0 6.187 0.635 0.635 0.635 1.663 0 2.298-0.317 0.317-0.733 0.476-1.149 0.476z"></path>

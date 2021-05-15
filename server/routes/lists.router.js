@@ -17,12 +17,12 @@ listsRouter.get("/", async (req, res) => {
 });
 
 listsRouter.get("/:id", async (req, res) => {
-  // FIXME find by state of list id instead or maybe not
   try {
     const list = await List.findById(req.params.id);
     if (!list) return res.status(404).send("List not found");
     await list.populate({ path: "owner", select: "name image" }).execPopulate();
-    await list.populate("listItems");
+    await list.populate({ path: "listItems", populate: { path: "taker" } }).execPopulate();
+    debugger;
     res.status(200).send(list);
   } catch (error) {
     // TODO fix error handling

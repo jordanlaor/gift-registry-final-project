@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Divider from "@material-ui/core/Divider";
 import Link from "@material-ui/core/Link";
+import copy from "copy-to-clipboard";
 
 import AppContext from "../../contexts/AppContext";
 import SignIn from "../../components/SignIn/SignIn.component";
@@ -96,7 +97,7 @@ const GifterListLoader = () => {
       <List key={item._id}>
         <ListItem button alignItems="flex-start">
           <ListItemAvatar>
-            <Avatar alt={item.itemName} src={item.imageLink} />
+            <Avatar variant="rounded" alt={item.itemName} src={item.imageLink} />
           </ListItemAvatar>
           <ListItemText primary={item.itemName} />
         </ListItem>
@@ -109,6 +110,9 @@ const GifterListLoader = () => {
             </Button>
             <Button component={Link} underline="none" target="_blank" href={item.link}>
               Go Here
+            </Button>
+            <Button onClick={() => copy(item.link)} className="btn">
+              Copy Link
             </Button>
           </ButtonGroup>
         </ListItem>
@@ -125,7 +129,7 @@ const GifterListLoader = () => {
     <>
       {appContext.userId && (
         <Nav>
-          <Button color="inherit" component={Link} to="/">
+          <Button color="inherit" component={Link} href={window.location.origin}>
             My Lists
           </Button>
           <div className="nav-list-section nav-user-info">
