@@ -105,7 +105,7 @@ const Lists = () => {
         history.push(history.location.pathname);
       }
     }
-  }, []);
+  }, [history.location]);
   return (
     <div>
       <Nav />

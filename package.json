@@ -31,6 +31,7 @@
     "express": "^4.17.1",
     "mongoose": "^5.12.6",
     "oneall": "^0.1.5",
+    "react-share": "^4.4.0",
     "validator": "^13.6.0"
   },
   "devDependencies": {

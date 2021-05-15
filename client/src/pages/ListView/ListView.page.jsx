@@ -18,6 +18,7 @@ import Nav from "../../components/Nav/Nav.component";
 import Iframe from "../../components/Iframe/Iframe.component";
 import functions from "../../functions/functions";
 import "./listView.css";
+import SocialMediaShare from "../../components/SocialMediaShare/SocialMediaShare.component";
 
 const ListView = () => {
   const appContext = useContext(AppContext);
@@ -130,6 +131,8 @@ const ListView = () => {
   useEffect(() => setIframeHeightFunc(), [iframeWrapperRef]);
   useEffect(() => setListHeight(() => iframeHeight), [iframeHeight]);
 
+  const shareLink = `${window.location.origin.replace(/\/$/, "")}/list/${appContext.listId}`;
+  const shareText = `Want to give me a gift? Buy me a gift from the gift list.`;
   return (
     <>
       <Nav>
@@ -177,7 +180,12 @@ const ListView = () => {
             </button>
           </div>
           <div className="list-view-list-wrapper" style={{ height: listHeight }} ref={listWrapperRef}>
-            <List component="nav">{renderListItems()}</List>
+            <List component="nav">
+              {renderListItems()}
+              <ListItem>
+                <SocialMediaShare shareLink={shareLink} shareText={shareText} />
+              </ListItem>
+            </List>
           </div>
         </div>
       </div>
