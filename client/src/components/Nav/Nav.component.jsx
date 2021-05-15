@@ -26,6 +26,7 @@ const Nav = (props) => {
     appContext.setUserAvatar(null);
     appContext.setUserName(null);
     appContext.setUserFirstName(null);
+    window.location.reload();
   };
 
   return (
