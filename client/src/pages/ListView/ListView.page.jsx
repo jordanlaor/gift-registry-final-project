@@ -32,7 +32,6 @@ const ListView = () => {
   const [isLoading, setIsLoading] = useState(true);
   const iframeWrapperRef = useRef(null);
   const listWrapperRef = useRef(null);
-  const [iframeHeight, setIframeHeight] = useState(0);
   const [listHeight, setListHeight] = useState(0);
 
   const history = useHistory();
@@ -140,7 +139,9 @@ const ListView = () => {
 
   const setIframeHeightFunc = () => {
     resetListHeight();
-    setIframeHeight(() => window.getComputedStyle(ReactDOM.findDOMNode(iframeWrapperRef.current)).height);
+
+    const height = window.getComputedStyle(ReactDOM.findDOMNode(iframeWrapperRef.current)).height;
+    setListHeight(() => height);
   };
 
   const resetListHeight = () => setListHeight(() => 0);
@@ -156,7 +157,6 @@ const ListView = () => {
   }, []);
 
   useEffect(() => setIframeHeightFunc(), [iframeWrapperRef]);
-  useEffect(() => setListHeight(() => iframeHeight), [iframeHeight]);
 
   const shareLink = `${window.location.origin.replace(/\/$/, "")}/list/${appContext.listId}`;
   const shareText = `Want to give me a gift? Buy me a gift from the gift list.`;

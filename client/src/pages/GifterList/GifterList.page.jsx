@@ -85,7 +85,15 @@ const GifterListLoader = () => {
   const giftItem = async (itemId) => {
     try {
       const res = await functions.giftItem(appContext.userId, appContext.listId, itemId);
+      await getListItems();
+    } catch (error) {
+      console.dir(error);
+    }
+  };
 
+  const ungiftItem = async (itemId) => {
+    try {
+      const res = await functions.ungiftItem(appContext.listId, itemId);
       await getListItems();
     } catch (error) {
       console.dir(error);
@@ -102,11 +110,13 @@ const GifterListLoader = () => {
           <ListItemText primary={item.itemName} />
         </ListItem>
         <ListItem>
-          {/* TODO add ungift */}
           <ButtonGroup aria-label="outlined primary button group">
-            {/* TODO add actions to the buttons */}
-            <Button disabled={item.taker} onClick={() => giftItem(item._id)} className="btn">
-              Gift This
+            <Button
+              disabled={item.taker && item.taker._id !== appContext.userId}
+              onClick={item.taker ? () => ungiftItem(item._id) : () => giftItem(item._id)}
+              className="btn"
+            >
+              {item.taker?._id === appContext.userId ? "Ungift This" : "Gift This"}
             </Button>
             <Button component={Link} underline="none" target="_blank" href={item.link}>
               Go Here
@@ -127,24 +137,17 @@ const GifterListLoader = () => {
 
   return (
     <>
-      {appContext.userId && (
-        <Nav>
-          <Button color="inherit" component={Link} href={window.location.origin}>
-            My Lists
-          </Button>
-          <div className="nav-list-section nav-user-info">
-            {appContext.userId !== appContext.ownerId && <Avatar alt={appContext.ownerName} src={appContext.ownerAvatar} />}
-            <div>{appContext.listName}</div>
-          </div>
-        </Nav>
-      )}
-      {isLoading ? (
-        <CircularProgress />
-      ) : appContext.userId ? (
-        <List component="nav">{items.length ? renderListItems() : ""}</List>
-      ) : (
-        <SignIn />
-      )}
+      <Nav>
+        <Button color="inherit" component={Link} href={window.location.origin}>
+          My Lists
+        </Button>
+        <div className="nav-list-section nav-user-info">
+          {appContext.userId !== appContext.ownerId && <Avatar alt={appContext.ownerName} src={appContext.ownerAvatar} />}
+          <div>{appContext.listName}</div>
+        </div>
+      </Nav>
+
+      {isLoading ? <CircularProgress /> : <List component="nav">{items.length ? renderListItems() : ""}</List>}
     </>
   );
   // return <SignIn />;

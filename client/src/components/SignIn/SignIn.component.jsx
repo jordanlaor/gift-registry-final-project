@@ -4,7 +4,11 @@ import "./signIn.css";
 
 const SignIn = () => {
   // return <div id="oa_social_login"></div>;
-  return <Button id="oa_social_login_link">Log In</Button>;
+  return (
+    <Button color="inherit" id="oa_social_login_link">
+      Log In
+    </Button>
+  );
 };
 
 export default SignIn;

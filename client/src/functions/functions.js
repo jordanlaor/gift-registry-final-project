@@ -92,6 +92,15 @@ const functions = {
       throw error;
     }
   },
+  ungiftItem: async (listId, itemId) => {
+    try {
+      const { data } = await axios.patch(`/api/lists/${listId}`, { userId: null, itemId });
+      return data;
+    } catch (error) {
+      // TODO error handling
+      throw error;
+    }
+  },
 };
 
 export default functions;

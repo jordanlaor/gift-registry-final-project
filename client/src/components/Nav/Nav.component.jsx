@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import AppContext from "../../contexts/AppContext";
 
 import "./nav.css";
+import SignIn from "../SignIn/SignIn.component";
 
 const useStyles = makeStyles((theme) => ({
   nav: {
@@ -34,11 +35,17 @@ const Nav = (props) => {
       <Toolbar className={classes.nav}>
         {children && children}
         <span className="nav-user-info">
-          <Avatar alt={appContext.userName} src={appContext.userAvatar} />
-          <span>{appContext.userFirstName}</span>
-          <Button color="inherit" component={Link} href={window.location.href} onClick={signOut} className={classes.navItem}>
-            Sign Out
-          </Button>
+          {appContext.userId ? (
+            <>
+              <Avatar alt={appContext.userName} src={appContext.userAvatar} />
+              <span>{appContext.userFirstName}</span>
+              <Button color="inherit" component={Link} href={window.location.href} onClick={signOut} className={classes.navItem}>
+                Sign Out
+              </Button>
+            </>
+          ) : (
+            <SignIn />
+          )}
         </span>
       </Toolbar>
     </AppBar>
