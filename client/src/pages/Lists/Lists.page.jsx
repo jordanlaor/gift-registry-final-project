@@ -20,7 +20,6 @@ const Lists = () => {
   const [lists, setLists] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const appContext = useContext(AppContext);
-  const params = useParams();
   const history = useHistory();
   const search = new URLSearchParams(useLocation().search);
   const handleClickOpen = () => {
@@ -85,6 +84,7 @@ const Lists = () => {
       appContext.setUserAvatar(data.image);
       appContext.setOwnerName(data.name);
       appContext.setUserName(data.name);
+      appContext.setUserFirstName(data.firstName);
     } catch (error) {
       console.log(error.data);
     } finally {
@@ -108,7 +108,7 @@ const Lists = () => {
   }, [history.location]);
   return (
     <div>
-      <Nav />
+      {appContext.userId && <Nav />}
       {isLoading ? (
         <Backdrop open={isLoading}>
           <CircularProgress color="inherit" />

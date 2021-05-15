@@ -13,5 +13,5 @@ _oneall.push([
   `https://final-project-gift-registry.herokuapp.com/api/callback?redirect=${window.location.origin}&page=${window.location.pathname}`,
 ]);
 _oneall.push(["social_login", "set_providers", ["facebook", "google"]]);
-_oneall.push(["social_login", "set_custom_css_uri", "https://secure.oneallcdn.com/css/api/themes/flat_w32_h32_wc_v1.css"]);
-_oneall.push(["social_login", "do_render_ui", "oa_social_login"]);
+_oneall.push(["social_login", "set_custom_css_uri", "https://secure.oneallcdn.com/css/api/themes/beveled_connect_w208_h30_wc_v1.css"]);
+_oneall.push(["social_login", "attach_onclick_popup_ui", "oa_social_login_link"]);

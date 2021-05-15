@@ -26,12 +26,15 @@
   "dependencies": {
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
+    "copy-to-clipboard": "^3.3.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.12.6",
     "oneall": "^0.1.5",
+    "react-copy-to-clipboard": "^5.0.3",
     "react-share": "^4.4.0",
+    "react-string-clamp": "^0.3.1",
     "validator": "^13.6.0"
   },
   "devDependencies": {

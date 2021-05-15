@@ -15,6 +15,7 @@ import Link from "@material-ui/core/Link";
 import AppContext from "../../contexts/AppContext";
 import SignIn from "../../components/SignIn/SignIn.component";
 import functions from "../../functions/functions";
+import Nav from "../../components/Nav/Nav.component";
 
 const GifterListLoader = () => {
   const history = useHistory();
@@ -30,6 +31,7 @@ const GifterListLoader = () => {
       appContext.setUserId(data._id);
       appContext.setUserAvatar(data.image);
       appContext.setUserName(data.name);
+      appContext.setUserFirstName(data.firstName);
     } catch (error) {
       console.log(error);
     } finally {
@@ -121,6 +123,17 @@ const GifterListLoader = () => {
 
   return (
     <>
+      {appContext.userId && (
+        <Nav>
+          <Button color="inherit" component={Link} to="/">
+            My Lists
+          </Button>
+          <div className="nav-list-section nav-user-info">
+            {appContext.userId !== appContext.ownerId && <Avatar alt={appContext.ownerName} src={appContext.ownerAvatar} />}
+            <div>{appContext.listName}</div>
+          </div>
+        </Nav>
+      )}
       {isLoading ? (
         <CircularProgress />
       ) : appContext.userId ? (

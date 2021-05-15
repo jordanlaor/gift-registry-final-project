@@ -9,6 +9,10 @@
   margin: 0.5em;
 }
 
+.resp-sharing-button__link:hover {
+  cursor: pointer;
+}
+
 .resp-sharing-button {
   border-radius: 5px;
   transition: 25ms ease-out;

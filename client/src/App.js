@@ -16,6 +16,7 @@ function App() {
   const [userId, setUserId] = useState();
   const [ownerName, setOwnerName] = useState();
   const [userName, setUserName] = useState();
+  const [userFirstName, setUserFirstName] = useState();
   const [ownerAvatar, setOwnerAvatar] = useState();
   const [userAvatar, setUserAvatar] = useState();
   const [listId, setListId] = useState();
@@ -38,6 +39,8 @@ function App() {
           setOwnerName,
           userName,
           setUserName,
+          userFirstName,
+          setUserFirstName,
           ownerAvatar,
           setOwnerAvatar,
           userAvatar,

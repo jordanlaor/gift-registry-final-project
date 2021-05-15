@@ -1,11 +1,12 @@
 import React from "react";
+import copy from "copy-to-clipboard";
 import "./socialMediaShare.css";
 
 const SocialMediaShare = (props) => {
   const { shareLink, shareText } = props;
   return (
     <div>
-      <a
+      {/* <a
         class="resp-sharing-button__link"
         href={`https://facebook.com/sharer/sharer.php?u=${shareLink}`}
         target="_blank"
@@ -20,9 +21,9 @@ const SocialMediaShare = (props) => {
           </div>
           Share on Facebook
         </div>
-      </a>
+      </a> */}
 
-      <a
+      {/* <a
         class="resp-sharing-button__link"
         href={`https://twitter.com/intent/tweet/?text=${shareText}&amp;url=${shareLink}`}
         target="_blank"
@@ -37,24 +38,7 @@ const SocialMediaShare = (props) => {
           </div>
           Share on Twitter
         </div>
-      </a>
-
-      <a
-        class="resp-sharing-button__link"
-        href={`mailto:?subject=${shareText}&amp;body=${shareLink}`}
-        target="_self"
-        rel="noopener"
-        aria-label="Share by E-Mail"
-      >
-        <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--large">
-          <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M22 4H2C.9 4 0 4.9 0 6v12c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.25 14.43l-3.5 2c-.08.05-.17.07-.25.07-.17 0-.34-.1-.43-.25-.14-.24-.06-.55.18-.68l3.5-2c.24-.14.55-.06.68.18.14.24.06.55-.18.68zm4.75.07c-.1 0-.2-.03-.27-.08l-8.5-5.5c-.23-.15-.3-.46-.15-.7.15-.22.46-.3.7-.14L12 13.4l8.23-5.32c.23-.15.54-.08.7.15.14.23.07.54-.16.7l-8.5 5.5c-.08.04-.17.07-.27.07zm8.93 1.75c-.1.16-.26.25-.43.25-.08 0-.17-.02-.25-.07l-3.5-2c-.24-.13-.32-.44-.18-.68s.44-.32.68-.18l3.5 2c.24.13.32.44.18.68z" />
-            </svg>
-          </div>
-          Share by E-Mail
-        </div>
-      </a>
+      </a> */}
 
       <a
         class="resp-sharing-button__link"
@@ -89,6 +73,35 @@ const SocialMediaShare = (props) => {
           Share on Telegram
         </div>
       </a>
+
+      <a
+        class="resp-sharing-button__link"
+        href={`mailto:?subject=${shareText}&amp;body=${shareLink}`}
+        target="_self"
+        rel="noopener"
+        aria-label="Share by E-Mail"
+      >
+        <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--large">
+          <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M22 4H2C.9 4 0 4.9 0 6v12c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.25 14.43l-3.5 2c-.08.05-.17.07-.25.07-.17 0-.34-.1-.43-.25-.14-.24-.06-.55.18-.68l3.5-2c.24-.14.55-.06.68.18.14.24.06.55-.18.68zm4.75.07c-.1 0-.2-.03-.27-.08l-8.5-5.5c-.23-.15-.3-.46-.15-.7.15-.22.46-.3.7-.14L12 13.4l8.23-5.32c.23-.15.54-.08.7.15.14.23.07.54-.16.7l-8.5 5.5c-.08.04-.17.07-.27.07zm8.93 1.75c-.1.16-.26.25-.43.25-.08 0-.17-.02-.25-.07l-3.5-2c-.24-.13-.32-.44-.18-.68s.44-.32.68-.18l3.5 2c.24.13.32.44.18.68z" />
+            </svg>
+          </div>
+          Share by E-Mail
+        </div>
+      </a>
+
+      <div class="resp-sharing-button__link" aria-label="Copy Link" onClick={() => copy(shareLink)}>
+        <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--large">
+          <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+              <path d="M13.757 19.868c-0.416 0-0.832-0.159-1.149-0.476-2.973-2.973-2.973-7.81 0-10.783l6-6c1.44-1.44 3.355-2.233 5.392-2.233s3.951 0.793 5.392 2.233c2.973 2.973 2.973 7.81 0 10.783l-2.743 2.743c-0.635 0.635-1.663 0.635-2.298 0s-0.635-1.663 0-2.298l2.743-2.743c1.706-1.706 1.706-4.481 0-6.187-0.826-0.826-1.925-1.281-3.094-1.281s-2.267 0.455-3.094 1.281l-6 6c-1.706 1.706-1.706 4.481 0 6.187 0.635 0.635 0.635 1.663 0 2.298-0.317 0.317-0.733 0.476-1.149 0.476z"></path>
+              <path d="M8 31.625c-2.037 0-3.952-0.793-5.392-2.233-2.973-2.973-2.973-7.81 0-10.783l2.743-2.743c0.635-0.635 1.664-0.635 2.298 0s0.635 1.663 0 2.298l-2.743 2.743c-1.706 1.706-1.706 4.481 0 6.187 0.826 0.826 1.925 1.281 3.094 1.281s2.267-0.455 3.094-1.281l6-6c1.706-1.706 1.706-4.481 0-6.187-0.635-0.635-0.635-1.663 0-2.298s1.663-0.635 2.298 0c2.973 2.973 2.973 7.81 0 10.783l-6 6c-1.44 1.44-3.355 2.233-5.392 2.233z"></path>{" "}
+            </svg>
+          </div>
+          Copy Link
+        </div>
+      </div>
     </div>
   );
 };

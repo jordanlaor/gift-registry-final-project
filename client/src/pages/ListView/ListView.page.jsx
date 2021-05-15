@@ -8,17 +8,18 @@ import IconButton from "@material-ui/core/IconButton";
 import TextField from "@material-ui/core/TextField";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Divider from "@material-ui/core/Divider";
+import TextClamp from "react-string-clamp";
+import { Link } from "react-router-dom";
 
 import AppContext from "../../contexts/AppContext";
 import Nav from "../../components/Nav/Nav.component";
 import Iframe from "../../components/Iframe/Iframe.component";
 import functions from "../../functions/functions";
-import "./listView.css";
 import SocialMediaShare from "../../components/SocialMediaShare/SocialMediaShare.component";
+import "./listView.css";
 
 const ListView = () => {
   const appContext = useContext(AppContext);
@@ -51,7 +52,7 @@ const ListView = () => {
           <ListItemAvatar>
             <Avatar alt={item.itemName} src={item.imageLink} />
           </ListItemAvatar>
-          <ListItemText primary={item.itemName} />
+          <TextClamp lines={3} text={item.itemName} className="gift-list-item-text" />
         </ListItem>
         <ListItem>
           <Button onClick={() => deleteItem(item._id)} className="btn">
@@ -136,15 +137,19 @@ const ListView = () => {
   return (
     <>
       <Nav>
+        <Button color="inherit" component={Link} to="/">
+          My Lists
+        </Button>
         <div className={"nav-list-section"}>
           <div>{appContext.listName}</div>
           {
             <div>
-              <ButtonGroup aria-label="outlined primary button group">
-                {/* TODO add actions to the buttons */}
-                <Button onClick={deleteList}>Delete List</Button>
-                <Button onClick={switchList}>Switch List</Button>
-              </ButtonGroup>
+              {/* <ButtonGroup aria-label="outlined primary button group" color="white"> */}
+              {/* TODO add actions to the buttons */}
+              <Button color="inherit" onClick={deleteList}>
+                Delete List
+              </Button>
+              {/* </ButtonGroup> */}
             </div>
           }
         </div>
@@ -181,10 +186,11 @@ const ListView = () => {
           </div>
           <div className="list-view-list-wrapper" style={{ height: listHeight }} ref={listWrapperRef}>
             <List component="nav">
-              {renderListItems()}
               <ListItem>
                 <SocialMediaShare shareLink={shareLink} shareText={shareText} />
               </ListItem>
+              <Divider />
+              {renderListItems()}
             </List>
           </div>
         </div>
