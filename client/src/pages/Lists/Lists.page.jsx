@@ -91,9 +91,11 @@ const Lists = () => {
   }, [appContext.ownerId]);
 
   useEffect(() => {
-    if (search.get("token")) {
+    const token = search.get("token");
+    if (token) {
       try {
-        functions.getUserData(search.get("token"), appContext);
+        functions.getUserData(token, appContext);
+        functions.setCookie("user_token", token, 1);
         history.push(search.get("page"));
       } catch (error) {
         console.log(error);
