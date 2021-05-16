@@ -104,7 +104,7 @@ const Lists = () => {
   }, [history.location]);
 
   useEffect(() => {
-    getOwnerData();
+    if (appContext.userId && appContext.userAvatar && appContext.userName) getOwnerData();
   }, [appContext.userId, appContext.userAvatar, appContext.userName]);
 
   return (
