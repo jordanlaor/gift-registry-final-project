@@ -18,6 +18,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
+import ListSubheader from "@material-ui/core/ListSubheader";
 
 import AppContext from "../../contexts/AppContext";
 import Nav from "../../components/Nav/Nav.component";
@@ -55,7 +56,7 @@ const ListView = () => {
       alignItems: "center",
     },
     listTop: {
-      position: "fixed",
+      background: "white",
     },
     list: {
       position: "relative",
@@ -233,16 +234,16 @@ const ListView = () => {
           )}
           <div className={`list-view-list-wrapper`} style={{ height: listHeight, ...listProps }} ref={listWrapperRef}>
             <List component="nav" className={classes.list}>
-              <FormGroup row className={classes.listTop}>
-                <FormControlLabel
-                  control={<Switch checked={showIframe} onChange={() => setShowIframe((prev) => !prev)} name="showIframe" />}
-                  label={showIframe ? "expand list width" : "minimize list width"}
-                />
-              </FormGroup>
-              <ListItem className={classes.listTop}>
+              <ListSubheader className={classes.listTop}>
+                <FormGroup row className>
+                  <FormControlLabel
+                    control={<Switch checked={showIframe} onChange={() => setShowIframe((prev) => !prev)} name="showIframe" />}
+                    label={showIframe ? "expand list width" : "minimize list width"}
+                  />
+                </FormGroup>
                 <SocialMediaShare shareLink={shareLink} shareText={shareText} style={showIframe ? {} : { flexDirection: "row" }} />
-              </ListItem>
-              <Divider className={classes.listTop} />
+                <Divider />
+              </ListSubheader>
               {renderListItems()}
             </List>
           </div>

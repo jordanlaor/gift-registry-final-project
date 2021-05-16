@@ -89,19 +89,22 @@ const GifterList = () => {
                 <Button
                   disabled={item.taker && item.taker._id !== appContext.userId}
                   onClick={item.taker ? () => ungiftItem(item._id) : () => history.push(`/gift/${appContext.listId}/${item._id}`)}
-                  className="btn"
                 >
                   {giftBtnText}
                 </Button>
               ) : (
-                <SignIn text={giftBtnText} page={`/gift/${appContext.listId}/${item._id}`} />
+                <SignIn
+                  classes="MuiButton-outlined MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlined"
+                  text={giftBtnText}
+                  color="default"
+                  page={`/gift/${appContext.listId}/${item._id}`}
+                  disabled={item.taker && item.taker._id !== appContext.userId}
+                />
               )}
               <Button component={Link} underline="none" target="_blank" href={item.link}>
                 Go Here
               </Button>
-              <Button onClick={() => copy(item.link)} className="btn">
-                Copy Link
-              </Button>
+              <Button onClick={() => copy(item.link)}>Copy Link</Button>
             </ButtonGroup>
           </ListItem>
           <Divider />

@@ -4,10 +4,11 @@ import "./signIn.css";
 
 const SignIn = (props) => {
   // return <div id="oa_social_login"></div>;
-  const { text, page } = props;
+  const { text, page, disabled, classes, color } = props;
   return (
     <Button
-      color="inherit"
+      color={color || "inherit"}
+      className={classes || ""}
       onClick={() => {
         window._oneall.push([
           "social_login",
@@ -18,6 +19,7 @@ const SignIn = (props) => {
         ]);
         window._oneall.push(["social_login", "do_popup_ui"]);
       }}
+      disabled={disabled}
     >
       {text || "Sign In"}
     </Button>
