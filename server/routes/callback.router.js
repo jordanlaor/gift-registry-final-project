@@ -10,6 +10,7 @@ callbackRouter.post("/", async (req, res) => {
   try {
     debugger;
     const url = req.query.redirect.replace(/\/$/, "") + `?token=${req.body.connection_token}&page=${req.query.page}`;
+    res.cookie("user_token", req.body.connection_token, { maxAge: 60000 * 60 * 24 });
     res.redirect(url);
   } catch (error) {
     console.log(error);
