@@ -8,7 +8,6 @@ import ListsPage from "../../pages/Lists/Lists.page";
 import ListView from "../../pages/ListView/ListView.page";
 import functions from "../../functions/functions";
 import GifterCommit from "../../pages/GifterCommit/GifterCommit.page";
-import affCreate from "../../functions/afiliate";
 
 const Router = () => {
   const appContext = useContext(AppContext);
