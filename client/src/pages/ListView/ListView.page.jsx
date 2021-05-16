@@ -55,7 +55,7 @@ const ListView = () => {
       alignItems: "center",
     },
     listTop: {
-      display: "fixed",
+      position: "fixed",
     },
     list: {
       position: "relative",
@@ -190,12 +190,9 @@ const ListView = () => {
           <div>{appContext.listName}</div>
           {
             <div>
-              {/* <ButtonGroup aria-label="outlined primary button group" color="white"> */}
-              {/* TODO add actions to the buttons */}
               <Button color="inherit" onClick={deleteList}>
                 Delete List
               </Button>
-              {/* </ButtonGroup> */}
             </div>
           }
         </div>

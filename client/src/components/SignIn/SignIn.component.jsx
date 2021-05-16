@@ -19,7 +19,7 @@ const SignIn = (props) => {
         window._oneall.push(["social_login", "do_popup_ui"]);
       }}
     >
-      {text || "Log In"}
+      {text || "Sign In"}
     </Button>
   );
 };
