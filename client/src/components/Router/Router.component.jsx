@@ -11,12 +11,17 @@ import functions from "../../functions/functions";
 const Router = () => {
   const appContext = useContext(AppContext);
 
+  const getUserData = async (cookieToken) => {
+    await functions.getUserData(cookieToken, appContext);
+  };
+
   useEffect(() => {
     if (!appContext.token) {
       const cookieToken = functions.getCookie("user_token");
       if (cookieToken.length) {
         try {
-          functions.getUserData(cookieToken, appContext);
+          getUserData(cookieToken);
+          appContext.setToken(cookieToken);
         } catch (error) {
           console.log(error);
         }
