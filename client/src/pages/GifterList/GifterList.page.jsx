@@ -26,20 +26,6 @@ const GifterListLoader = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [items, setItems] = useState([]);
 
-  const getUserData = async () => {
-    try {
-      const { data } = await axios.get(`/api/user/${search.get("token")}`);
-      appContext.setUserId(data._id);
-      appContext.setUserAvatar(data.image);
-      appContext.setUserName(data.name);
-      appContext.setUserFirstName(data.firstName);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      history.push(`/list/${params.id}`);
-    }
-  };
-
   useEffect(() => {
     const loadList = async () => {
       setIsLoading(true);
@@ -59,12 +45,6 @@ const GifterListLoader = () => {
     };
     loadList();
     setIsLoading(false);
-  }, []);
-
-  useEffect(() => {
-    if (search.get("token")) {
-      getUserData();
-    }
   }, []);
 
   const getListItems = async () => {

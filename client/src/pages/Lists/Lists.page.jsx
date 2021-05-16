@@ -75,20 +75,14 @@ const Lists = () => {
     }
   };
 
-  const getUserData = async () => {
+  const getOwnerData = async () => {
     try {
       const { data } = await axios.get(`/api/user/${search.get("token")}`);
-      appContext.setOwnerId(data._id);
-      appContext.setUserId(data._id);
-      appContext.setOwnerAvatar(data.image);
-      appContext.setUserAvatar(data.image);
-      appContext.setOwnerName(data.name);
-      appContext.setUserName(data.name);
-      appContext.setUserFirstName(data.firstName);
+      appContext.setOwnerId(appContext.userId);
+      appContext.setOwnerAvatar(appContext.userAvatar);
+      appContext.setOwnerName(appContext.userName);
     } catch (error) {
       console.log(error.data);
-    } finally {
-      history.push("/");
     }
   };
 
@@ -97,15 +91,20 @@ const Lists = () => {
   }, [appContext.ownerId]);
 
   useEffect(() => {
-    if (search.get("page")) {
-      history.push(`${search.get("page")}?token=${search.get("token")}`);
-    } else {
-      if (search.get("token")) {
-        getUserData();
-        history.push(history.location.pathname);
+    if (search.get("token")) {
+      try {
+        functions.getUserData(search.get("token"), appContext);
+        history.push(search.get("page"));
+      } catch (error) {
+        console.log(error);
       }
     }
   }, [history.location]);
+
+  useEffect(() => {
+    getOwnerData();
+  }, [appContext.userId]);
+
   return (
     <div>
       {appContext.userId && <Nav />}

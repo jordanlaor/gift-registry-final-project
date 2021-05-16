@@ -1,14 +1,28 @@
 import axios from "axios";
-import React, { useContext } from "react";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { BrowserRouter, Switch, Route, Redirect, useLocation } from "react-router-dom";
 
 import GifterListPage from "../../pages/GifterList/GifterList.page";
 import AppContext from "../../contexts/AppContext";
 import ListsPage from "../../pages/Lists/Lists.page";
 import ListView from "../../pages/ListView/ListView.page";
+import functions from "../../functions/functions";
 
 const Router = () => {
   const appContext = useContext(AppContext);
+
+  useEffect(() => {
+    if (!appContext.token) {
+      const cookieToken = functions.getCookie("user_token");
+      if (cookieToken.length) {
+        try {
+          functions.getUserData(cookieToken, appContext);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+  }, []);
 
   return (
     <BrowserRouter>
