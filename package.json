@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/jordanlaor/gift-registry-final-project#readme",
   "dependencies": {
+    "affiliate": "^3.0.2",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "copy-to-clipboard": "^3.3.1",
@@ -36,6 +37,7 @@
     "react-copy-to-clipboard": "^5.0.3",
     "react-share": "^4.4.0",
     "react-string-clamp": "^0.3.1",
+    "shorturl": "^0.0.3",
     "validator": "^13.6.0"
   },
   "devDependencies": {

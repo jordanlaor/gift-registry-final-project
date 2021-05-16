@@ -3,9 +3,9 @@ import copy from "copy-to-clipboard";
 import "./socialMediaShare.css";
 
 const SocialMediaShare = (props) => {
-  const { shareLink, shareText } = props;
+  const { shareLink, shareText, style } = props;
   return (
-    <div className="social-media-share-wrapper">
+    <div className="social-media-share-wrapper" style={style}>
       {/* <a
         class="resp-sharing-button__link"
         href={`https://facebook.com/sharer/sharer.php?u=${shareLink}`}

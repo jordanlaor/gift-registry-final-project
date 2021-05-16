@@ -9,7 +9,6 @@ var _oneall = _oneall || [];
 _oneall.push([
   "social_login",
   "set_callback_uri",
-  // `http://localhost:9876/api/callback?redirect=${window.location.origin}&page=${window.location.pathname}`,
   `https://final-project-gift-registry.herokuapp.com/api/callback?redirect=${window.location.origin}&page=${window.location.pathname}`,
 ]);
 _oneall.push(["social_login", "set_providers", ["facebook", "google"]]);

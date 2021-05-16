@@ -18,7 +18,7 @@ import SignIn from "../../components/SignIn/SignIn.component";
 import functions from "../../functions/functions";
 import Nav from "../../components/Nav/Nav.component";
 
-const GifterListLoader = () => {
+const GifterList = () => {
   const history = useHistory();
   const search = new URLSearchParams(useLocation().search);
   const params = useParams();
@@ -73,34 +73,41 @@ const GifterListLoader = () => {
   };
 
   const renderListItems = () => {
-    return items.map((item) => (
-      <List key={item._id}>
-        <ListItem button alignItems="flex-start">
-          <ListItemAvatar>
-            <Avatar variant="rounded" alt={item.itemName} src={item.imageLink} />
-          </ListItemAvatar>
-          <ListItemText primary={item.itemName} />
-        </ListItem>
-        <ListItem>
-          <ButtonGroup aria-label="outlined primary button group">
-            <Button
-              disabled={item.taker && item.taker._id !== appContext.userId}
-              onClick={item.taker ? () => ungiftItem(item._id) : () => history.push(`/gift/${item._id}`)}
-              className="btn"
-            >
-              {item.taker && item.taker?._id === appContext.userId ? "Ungift This" : "Gift This"}
-            </Button>
-            <Button component={Link} underline="none" target="_blank" href={item.link}>
-              Go Here
-            </Button>
-            <Button onClick={() => copy(item.link)} className="btn">
-              Copy Link
-            </Button>
-          </ButtonGroup>
-        </ListItem>
-        <Divider />
-      </List>
-    ));
+    return items.map((item) => {
+      const giftBtnText = item.taker ? (item.taker?._id === appContext.userId ? "Ungift This" : "Already Gifted") : "Gift This";
+      return (
+        <List key={item._id}>
+          <ListItem button alignItems="flex-start">
+            <ListItemAvatar>
+              <Avatar variant="rounded" alt={item.itemName} src={item.imageLink} />
+            </ListItemAvatar>
+            <ListItemText primary={item.itemName} />
+          </ListItem>
+          <ListItem>
+            <ButtonGroup aria-label="outlined primary button group">
+              {appContext.userId ? (
+                <Button
+                  disabled={item.taker && item.taker._id !== appContext.userId}
+                  onClick={item.taker ? () => ungiftItem(item._id) : () => history.push(`/gift/${appContext.listId}/${item._id}`)}
+                  className="btn"
+                >
+                  {giftBtnText}
+                </Button>
+              ) : (
+                <SignIn text={giftBtnText} page={`/gift/${appContext.listId}/${item._id}`} />
+              )}
+              <Button component={Link} underline="none" target="_blank" href={item.link}>
+                Go Here
+              </Button>
+              <Button onClick={() => copy(item.link)} className="btn">
+                Copy Link
+              </Button>
+            </ButtonGroup>
+          </ListItem>
+          <Divider />
+        </List>
+      );
+    });
   };
 
   useEffect(() => {
@@ -129,4 +136,4 @@ const GifterListLoader = () => {
   // return <SignIn />;
 };
 
-export default GifterListLoader;
+export default GifterList;

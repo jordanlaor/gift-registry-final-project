@@ -15,6 +15,9 @@ import Divider from "@material-ui/core/Divider";
 import TextClamp from "react-string-clamp";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
 
 import AppContext from "../../contexts/AppContext";
 import Nav from "../../components/Nav/Nav.component";
@@ -30,9 +33,11 @@ const ListView = () => {
   const [srcInput, setSrcInput] = useState(src);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const iframeWrapperRef = useRef(null);
+  const iframeContainerRef = useRef(null);
   const listWrapperRef = useRef(null);
   const [listHeight, setListHeight] = useState(0);
+  const [showIframe, setShowIframe] = useState(true);
+  const [listProps, setListProps] = useState({});
 
   const history = useHistory();
 
@@ -48,6 +53,12 @@ const ListView = () => {
     gifter: {
       display: "flex",
       alignItems: "center",
+    },
+    listTop: {
+      display: "fixed",
+    },
+    list: {
+      position: "relative",
     },
   }));
 
@@ -65,6 +76,7 @@ const ListView = () => {
             if (!e.target.classList.contains("btn")) setSrc(item.link);
             // setSrc(item.link);
           }}
+          className={classes.gifter}
         >
           <ListItemAvatar>
             <Avatar variant="rounded" alt={item.itemName} src={item.imageLink} />
@@ -139,8 +151,8 @@ const ListView = () => {
 
   const setIframeHeightFunc = () => {
     resetListHeight();
-
-    const height = window.getComputedStyle(ReactDOM.findDOMNode(iframeWrapperRef.current)).height;
+    const iframeDomNode = ReactDOM.findDOMNode(iframeContainerRef.current);
+    const height = window.getComputedStyle(iframeDomNode).height;
     setListHeight(() => height);
   };
 
@@ -156,7 +168,15 @@ const ListView = () => {
     window.addEventListener("resize", setIframeHeightFunc);
   }, []);
 
-  useEffect(() => setIframeHeightFunc(), [iframeWrapperRef]);
+  useEffect(() => setIframeHeightFunc(), [iframeContainerRef]);
+
+  useEffect(
+    () =>
+      setListProps(() => {
+        return showIframe ? {} : { gridColumn: "1 / span 2" };
+      }),
+    [showIframe]
+  );
 
   const shareLink = `${window.location.origin.replace(/\/$/, "")}/list/${appContext.listId}`;
   const shareText = `Want to give me a gift? Buy me a gift from the gift list.`;
@@ -199,21 +219,31 @@ const ListView = () => {
             <i class="fas fa-search"></i>
           </IconButton>
         </Box>
-        <div className="iframe-container" ref={iframeWrapperRef}>
-          <div ref={iframeRef} className="iframe-wrapper">
-            <Iframe src={src} />
-            {/* <div data-actualURL="https://ksp.co.il/web/item/97638">DIVVVVVV</div> */}
-          </div>
-          <div className="iframe-add-nav-btn-wrap">
-            <button className="iframe-add-nav-btn" onClick={addItem} disabled={isLoading}>
-              <i class="fas fa-plus"></i>
-              Add to List
-            </button>
-          </div>
-          <div className="list-view-list-wrapper" style={{ height: listHeight }} ref={listWrapperRef}>
-            <List component="nav">
+        <div className="iframe-container" ref={iframeContainerRef}>
+          {showIframe && (
+            <div ref={iframeRef} className="iframe-wrapper">
+              <Iframe src={src} />
+              {/* <div data-actualURL="https://ksp.co.il/web/item/97638">DIVVVVVV</div> */}
+            </div>
+          )}
+          {showIframe && (
+            <div className="iframe-add-nav-btn-wrap">
+              <button className="iframe-add-nav-btn" onClick={addItem} disabled={isLoading}>
+                <i class="fas fa-plus"></i>
+                Add to List
+              </button>
+            </div>
+          )}
+          <div className={`list-view-list-wrapper ${classes.list}`} style={{ height: listHeight, ...listProps }} ref={listWrapperRef}>
+            <List component="nav" className={classes.listTop}>
+              <FormGroup row>
+                <FormControlLabel
+                  control={<Switch checked={showIframe} onChange={() => setShowIframe((prev) => !prev)} name="showIframe" />}
+                  label={showIframe ? "expand list width" : "minimize list width"}
+                />
+              </FormGroup>
               <ListItem>
-                <SocialMediaShare shareLink={shareLink} shareText={shareText} />
+                <SocialMediaShare shareLink={shareLink} shareText={shareText} style={showIframe ? {} : { flexDirection: "row" }} />
               </ListItem>
               <Divider />
               {renderListItems()}

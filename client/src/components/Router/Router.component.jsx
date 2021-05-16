@@ -8,6 +8,7 @@ import ListsPage from "../../pages/Lists/Lists.page";
 import ListView from "../../pages/ListView/ListView.page";
 import functions from "../../functions/functions";
 import GifterCommit from "../../pages/GifterCommit/GifterCommit.page";
+import affCreate from "../../functions/afiliate";
 
 const Router = () => {
   const appContext = useContext(AppContext);
@@ -17,16 +18,19 @@ const Router = () => {
   };
 
   useEffect(() => {
-    if (!appContext.token) {
+    const cookieHandle = async () => {
       const cookieToken = functions.getCookie("user_token");
       if (cookieToken.length) {
         try {
-          getUserData(cookieToken);
+          await getUserData(cookieToken);
           appContext.setToken(cookieToken);
         } catch (error) {
           console.log(error);
         }
       }
+    };
+    if (!appContext.token) {
+      cookieHandle();
     }
   }, []);
 
@@ -40,6 +44,8 @@ const Router = () => {
     }
   }, []);
 
+  // useEffect(() => affCreate());
+
   return (
     <BrowserRouter>
       <Switch>
@@ -52,7 +58,7 @@ const Router = () => {
         <Route path="/list/:id" exact>
           <GifterListPage />
         </Route>
-        <Route path="/gift/:itemId" exact>
+        <Route path="/gift/:listId/:itemId" exact>
           <GifterCommit />
         </Route>
         {/* <Route path="/list/:id/token/:token" exact>

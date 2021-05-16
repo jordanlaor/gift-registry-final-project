@@ -103,11 +103,13 @@ const functions = {
   },
   getUserData: async (token, appContext) => {
     try {
-      const { data } = await axios.get(`/api/user/${token}`);
-      appContext.setUserId(data._id);
-      appContext.setUserAvatar(data.image);
-      appContext.setUserName(data.name);
-      appContext.setUserFirstName(data.firstName);
+      if (token) {
+        const { data } = await axios.get(`/api/user/${token}`);
+        appContext.setUserId(data._id);
+        appContext.setUserAvatar(data.image);
+        appContext.setUserName(data.name);
+        appContext.setUserFirstName(data.firstName);
+      } else console.log("no token");
     } catch (error) {
       console.log(error.data);
     }
