@@ -138,6 +138,17 @@ const functions = {
     var expires = "expires=" + d;
     document.cookie = cname + "=;" + expires + ";path=/";
   },
+
+  saveListToLocalstorage: (listId, listName) => {
+    localStorage.setItem("listId", listId);
+    localStorage.setItem("listName", listName);
+  },
+
+  getListFromLocalstorage: () => {
+    const listId = localStorage.getItem("listId") || null;
+    const listName = localStorage.getItem("listName") || null;
+    return { listId, listName };
+  },
 };
 
 export default functions;

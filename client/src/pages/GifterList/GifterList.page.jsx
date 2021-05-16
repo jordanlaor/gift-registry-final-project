@@ -50,24 +50,16 @@ const GifterListLoader = () => {
   const getListItems = async () => {
     setIsLoading(true);
     try {
-      if (appContext.listId && appContext.userId) {
+      if (appContext.listId) {
         const data = await functions.getListItems(appContext.listId);
         setItems(data.listItems);
+        appContext.setListName(data.listName);
       }
     } catch (error) {
       // TODO add error handling
       console.log(error);
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  const giftItem = async (itemId) => {
-    try {
-      const res = await functions.giftItem(appContext.userId, appContext.listId, itemId);
-      await getListItems();
-    } catch (error) {
-      console.dir(error);
     }
   };
 
@@ -93,10 +85,10 @@ const GifterListLoader = () => {
           <ButtonGroup aria-label="outlined primary button group">
             <Button
               disabled={item.taker && item.taker._id !== appContext.userId}
-              onClick={item.taker ? () => ungiftItem(item._id) : () => giftItem(item._id)}
+              onClick={item.taker ? () => ungiftItem(item._id) : () => history.push(`/gift/${item._id}`)}
               className="btn"
             >
-              {item.taker?._id === appContext.userId ? "Ungift This" : "Gift This"}
+              {item.taker && item.taker?._id === appContext.userId ? "Ungift This" : "Gift This"}
             </Button>
             <Button component={Link} underline="none" target="_blank" href={item.link}>
               Go Here
@@ -114,6 +106,10 @@ const GifterListLoader = () => {
   useEffect(() => {
     getListItems();
   }, [appContext.listId, appContext.userId]);
+
+  useEffect(() => {
+    appContext.setListId(() => params.id);
+  }, []);
 
   return (
     <>

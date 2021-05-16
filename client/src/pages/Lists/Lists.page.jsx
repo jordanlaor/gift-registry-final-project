@@ -50,6 +50,7 @@ const Lists = () => {
         onClick={() => {
           appContext.setListId(list._id);
           appContext.setListName(list.listName);
+          functions.saveListToLocalstorage(list._id, list.listName);
         }}
       >
         <ListItemText primary={list.listName} />
@@ -77,7 +78,6 @@ const Lists = () => {
 
   const getOwnerData = async () => {
     try {
-      const { data } = await axios.get(`/api/user/${search.get("token")}`);
       appContext.setOwnerId(appContext.userId);
       appContext.setOwnerAvatar(appContext.userAvatar);
       appContext.setOwnerName(appContext.userName);

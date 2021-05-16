@@ -7,6 +7,7 @@ import AppContext from "../../contexts/AppContext";
 import ListsPage from "../../pages/Lists/Lists.page";
 import ListView from "../../pages/ListView/ListView.page";
 import functions from "../../functions/functions";
+import GifterCommit from "../../pages/GifterCommit/GifterCommit.page";
 
 const Router = () => {
   const appContext = useContext(AppContext);
@@ -29,6 +30,16 @@ const Router = () => {
     }
   }, []);
 
+  useEffect(() => {
+    try {
+      const { listId, listName } = functions.getListFromLocalstorage();
+      appContext.setListId(listId);
+      appContext.setListName(listName);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
   return (
     <BrowserRouter>
       <Switch>
@@ -40,6 +51,9 @@ const Router = () => {
         </Route>
         <Route path="/list/:id" exact>
           <GifterListPage />
+        </Route>
+        <Route path="/gift/:itemId" exact>
+          <GifterCommit />
         </Route>
         {/* <Route path="/list/:id/token/:token" exact>
           <GifterListPage />
