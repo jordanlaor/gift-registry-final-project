@@ -103,7 +103,7 @@ const Lists = () => {
 
   useEffect(() => {
     getOwnerData();
-  }, [appContext.userId]);
+  }, [appContext.userId, appContext.userAvatar, appContext.userName]);
 
   return (
     <div>
