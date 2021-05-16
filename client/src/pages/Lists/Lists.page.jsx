@@ -112,7 +112,7 @@ const Lists = () => {
         <Backdrop open={isLoading}>
           <CircularProgress color="inherit" />
         </Backdrop>
-      ) : appContext.ownerId ? (
+      ) : appContext.userId ? (
         <>
           <List component="nav">
             {lists.length ? renderLists() : ""}
