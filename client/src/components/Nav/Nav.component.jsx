@@ -10,6 +10,7 @@ import AppContext from "../../contexts/AppContext";
 
 import "./nav.css";
 import SignIn from "../SignIn/SignIn.component";
+import functions from "../../functions/functions";
 
 const useStyles = makeStyles((theme) => ({
   nav: {
@@ -27,6 +28,7 @@ const Nav = (props) => {
     appContext.setUserAvatar(null);
     appContext.setUserName(null);
     appContext.setUserFirstName(null);
+    functions.deleteCookie("user_token");
     window.location.reload();
   };
 
