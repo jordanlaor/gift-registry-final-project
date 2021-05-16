@@ -231,18 +231,18 @@ const ListView = () => {
               </button>
             </div>
           )}
-          <div className={`list-view-list-wrapper ${classes.list}`} style={{ height: listHeight, ...listProps }} ref={listWrapperRef}>
-            <List component="nav" className={classes.listTop}>
-              <FormGroup row>
+          <div className={`list-view-list-wrapper`} style={{ height: listHeight, ...listProps }} ref={listWrapperRef}>
+            <List component="nav" className={classes.list}>
+              <FormGroup row className={classes.listTop}>
                 <FormControlLabel
                   control={<Switch checked={showIframe} onChange={() => setShowIframe((prev) => !prev)} name="showIframe" />}
                   label={showIframe ? "expand list width" : "minimize list width"}
                 />
               </FormGroup>
-              <ListItem>
+              <ListItem className={classes.listTop}>
                 <SocialMediaShare shareLink={shareLink} shareText={shareText} style={showIframe ? {} : { flexDirection: "row" }} />
               </ListItem>
-              <Divider />
+              <Divider className={classes.listTop} />
               {renderListItems()}
             </List>
           </div>
