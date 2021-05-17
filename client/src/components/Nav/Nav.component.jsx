@@ -15,6 +15,7 @@ import functions from "../../functions/functions";
 const useStyles = makeStyles((theme) => ({
   nav: {
     justifyContent: "space-between",
+    marginTop: "8px",
   },
 }));
 
@@ -33,9 +34,9 @@ const Nav = (props) => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky" className={classes.navWrapper}>
       <Toolbar className={classes.nav}>
-        {children && children}
+        {(children && children) || <span></span>}
         <span className="nav-user-info">
           {appContext.userId ? (
             <>

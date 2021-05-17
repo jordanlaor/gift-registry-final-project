@@ -78,3 +78,15 @@
   grid-template-rows: 1fr;
   position: relative;
 }
+
+.listName {
+  font-size: 1.2rem;
+  margin-top: 9px;
+  font-weight: 500;
+}
+
+.listNameGifter {
+  font-size: 1.1rem;
+  margin-bottom: 9px;
+  font-weight: 500;
+}

@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Backdrop, CircularProgress, Link, Button } from "@material-ui/core";
+import { Backdrop, CircularProgress, Link, Button, Avatar } from "@material-ui/core";
 import SignIn from "../../components/SignIn/SignIn.component";
 import AppContext from "../../contexts/AppContext";
 import functions from "../../functions/functions";
+import GiftButton from "../../components/GiftButton/GiftButton.component";
+import Nav from "../../components/Nav/Nav.component";
 
 const GifterCommit = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -38,8 +40,19 @@ const GifterCommit = () => {
   }, [appContext.userId]);
   return (
     <>
+      <Nav>
+        <Button color="inherit" component={Link} href={window.location.origin}>
+          My Lists
+        </Button>
+        <div className="nav-list-section nav-user-info">
+          {appContext.userId !== appContext.ownerId && <Avatar alt={appContext.ownerName} src={appContext.ownerAvatar} />}
+          <div className="listNameGifter">{appContext.listName}</div>
+        </div>
+      </Nav>
       {!appContext.token ? (
-        <SignIn />
+        <GiftButton>
+          <SignIn />
+        </GiftButton>
       ) : appContext.userId && itemTaken ? (
         <div>
           You successfully committed to gift this item

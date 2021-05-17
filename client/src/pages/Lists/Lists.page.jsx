@@ -7,13 +7,15 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Button from "@material-ui/core/Button";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import axios from "axios";
 
 import CreateList from "../../components/CreateList/CreateList.component";
 import functions from "../../functions/functions";
 import AppContext from "../../contexts/AppContext";
 import Nav from "../../components/Nav/Nav.component";
 import SignIn from "../../components/SignIn/SignIn.component";
+import GiftButton from "../../components/GiftButton/GiftButton.component";
+
+import "./lists.css";
 
 const Lists = () => {
   const [open, setOpen] = useState(false);
@@ -108,7 +110,7 @@ const Lists = () => {
   }, [appContext.userId, appContext.userAvatar, appContext.userName]);
 
   return (
-    <div>
+    <div className={appContext.userId ? "" : "listsPageSignInMode"}>
       {appContext.userId && <Nav />}
       {isLoading ? (
         <Backdrop open={isLoading}>
@@ -125,7 +127,9 @@ const Lists = () => {
           <CreateList open={open} onClose={handleClose} />
         </>
       ) : (
-        <SignIn />
+        <GiftButton>
+          <SignIn />
+        </GiftButton>
       )}
     </div>
   );

@@ -44,7 +44,6 @@ const Router = () => {
   }, []);
 
   // useEffect(() => affCreate());
-
   return (
     <BrowserRouter>
       <Switch>
@@ -55,17 +54,12 @@ const Router = () => {
           {appContext.userId && appContext.listId ? <ListView /> : <Redirect path="/" />}
         </Route>
         <Route path="/list/:id" exact>
-          <GifterListPage />
+          {appContext.userId && appContext.userId === appContext.ownerId ? <Redirect path="/list" /> : <GifterListPage />}
         </Route>
         <Route path="/gift/:listId/:itemId" exact>
-          <GifterCommit />
+          {appContext.userId && appContext.userId === appContext.ownerId ? <Redirect path="/list" /> : <GifterCommit />}
         </Route>
-        {/* <Route path="/list/:id/token/:token" exact>
-          <GifterListPage />
-        </Route>
-        <Route path="/token/:token" exact>
-          <ListsPage />
-        </Route> */}
+        <Redirect path="/" />
         {/* TODO add 404 */}
       </Switch>
     </BrowserRouter>

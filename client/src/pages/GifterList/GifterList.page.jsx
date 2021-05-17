@@ -18,6 +18,8 @@ import SignIn from "../../components/SignIn/SignIn.component";
 import functions from "../../functions/functions";
 import Nav from "../../components/Nav/Nav.component";
 
+import "./giferList.css";
+
 const GifterList = () => {
   const history = useHistory();
   const search = new URLSearchParams(useLocation().search);
@@ -127,9 +129,9 @@ const GifterList = () => {
         <Button color="inherit" component={Link} href={window.location.origin}>
           My Lists
         </Button>
-        <div className="nav-list-section nav-user-info">
+        <div className="nav-list-section nav-gifter nav-user-info">
           {appContext.userId !== appContext.ownerId && <Avatar alt={appContext.ownerName} src={appContext.ownerAvatar} />}
-          <div>{appContext.listName}</div>
+          <div className="listNameGifter">{appContext.listName}</div>
         </div>
       </Nav>
 

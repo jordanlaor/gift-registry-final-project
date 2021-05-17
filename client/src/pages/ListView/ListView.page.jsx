@@ -61,6 +61,13 @@ const ListView = () => {
     list: {
       position: "relative",
     },
+    searchIcon: {
+      transition: "0.3s",
+      "&:hover": {
+        backgroundColor: "inherit",
+        color: "rgba(54, 143, 139,0.9)",
+      },
+    },
   }));
 
   const classes = useStyles();
@@ -188,7 +195,7 @@ const ListView = () => {
           My Lists
         </Button>
         <div className={"nav-list-section"}>
-          <div>{appContext.listName}</div>
+          <div className="listName">{appContext.listName}</div>
           {
             <div>
               <Button color="inherit" onClick={deleteList}>
@@ -213,7 +220,7 @@ const ListView = () => {
             value={srcInput}
             onChange={(e) => setSrcInput(e.target.value)}
           />
-          <IconButton aria-label="search" onClick={() => setSrc(srcInput)}>
+          <IconButton className={classes.searchIcon} aria-label="search" onClick={() => setSrc(srcInput)}>
             <i class="fas fa-search"></i>
           </IconButton>
         </Box>
