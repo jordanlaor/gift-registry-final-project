@@ -218,9 +218,13 @@ const ListView = () => {
             }}
             variant="outlined"
             value={srcInput}
-            onChange={(e) => setSrcInput(e.target.value)}
+            onChange={(e) => setSrcInput(() => e.target.value)}
           />
-          <IconButton className={classes.searchIcon} aria-label="search" onClick={() => setSrc(srcInput)}>
+          <IconButton
+            className={classes.searchIcon}
+            aria-label="search"
+            onClick={() => setSrc(() => (srcInput.length ? srcInput : "https://www.amazon.com/"))}
+          >
             <i class="fas fa-search"></i>
           </IconButton>
         </Box>

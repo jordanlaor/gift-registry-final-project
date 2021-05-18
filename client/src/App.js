@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";
-import { StylesProvider } from "@material-ui/core/styles";
 
 import theme from "./theme";
 import Router from "./components/Router/Router.component";
@@ -16,6 +15,7 @@ function App() {
   const [userId, setUserId] = useState();
   const [ownerName, setOwnerName] = useState();
   const [userName, setUserName] = useState();
+  const [ownerFirstName, setOwnerFirstName] = useState();
   const [userFirstName, setUserFirstName] = useState();
   const [ownerAvatar, setOwnerAvatar] = useState();
   const [userAvatar, setUserAvatar] = useState();
@@ -41,6 +41,8 @@ function App() {
           setUserName,
           userFirstName,
           setUserFirstName,
+          ownerFirstName,
+          setOwnerFirstName,
           ownerAvatar,
           setOwnerAvatar,
           userAvatar,

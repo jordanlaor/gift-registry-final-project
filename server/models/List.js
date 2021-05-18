@@ -69,7 +69,7 @@ ListSchema.methods.takeItem = async function (itemId, userId) {
     debugger;
     item.taker = userId || null;
     await list.save();
-    return list;
+    return item;
   } catch (error) {
     console.dir(error);
     throw error;
@@ -85,7 +85,7 @@ ListSchema.methods.untakeItem = async function (itemId, userId) {
     if (!item) throw "No such item";
     item.taker = null;
     await list.save();
-    return list;
+    return item;
   } catch (error) {
     console.log(error);
     throw error;

@@ -83,6 +83,7 @@ const Lists = () => {
       appContext.setOwnerId(appContext.userId);
       appContext.setOwnerAvatar(appContext.userAvatar);
       appContext.setOwnerName(appContext.userName);
+      appContext.setOwnerFirstName(appContext.userFirstName);
     } catch (error) {
       console.log(error.data);
     }

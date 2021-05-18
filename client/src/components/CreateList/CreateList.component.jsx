@@ -16,7 +16,10 @@ const CreateList = (props) => {
 
   const handleCreate = async () => {
     try {
-      const { data } = await axios.post("/api/owner/lists", { owner: appContext.ownerId, listName: name });
+      const { data } = await axios.post("/api/owner/lists", {
+        owner: appContext.ownerId,
+        listName: name.length ? name : `${appContext.ownerFirstName}'s List`,
+      });
       // TODO add success handling
       console.log(appContext);
       console.log(data._id);

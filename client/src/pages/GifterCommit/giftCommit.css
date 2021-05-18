@@ -1,0 +1,25 @@
+.giving-a-gift-img {
+  width: 50vw;
+  display: block;
+}
+
+.gifter-commit-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: 3rem;
+}
+
+.item-name {
+  font-size: 0.7rem;
+}
+
+.gifter-commit-page h2 {
+  text-align: center;
+}
+
+.gift-btn-wrapper {
+  align-self: center;
+  justify-self: center;
+}

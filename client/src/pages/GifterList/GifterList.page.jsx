@@ -38,6 +38,7 @@ const GifterList = () => {
           appContext.setListName(data.listName);
           appContext.setOwnerId(data.owner._id);
           appContext.setOwnerName(data.owner.name);
+          appContext.setOwnerFirstName(data.owner.firstName);
           appContext.setOwnerAvatar(data.owner.image);
         }
       } catch (error) {
