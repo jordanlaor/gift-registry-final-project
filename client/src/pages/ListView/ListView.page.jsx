@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import { useHistory } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
 import IconButton from "@material-ui/core/IconButton";
 import TextField from "@material-ui/core/TextField";
 import List from "@material-ui/core/List";
@@ -19,6 +18,7 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import ListSubheader from "@material-ui/core/ListSubheader";
+import { isMobileOnly } from "react-device-detect";
 
 import AppContext from "../../contexts/AppContext";
 import Nav from "../../components/Nav/Nav.component";
@@ -39,6 +39,7 @@ const ListView = () => {
   const [listHeight, setListHeight] = useState(0);
   const [showIframe, setShowIframe] = useState(true);
   const [listProps, setListProps] = useState({});
+  const [iframeError, setIframeError] = useState(false);
 
   const history = useHistory();
 
@@ -248,7 +249,14 @@ const ListView = () => {
               <ListSubheader className={classes.listTop}>
                 <FormGroup row className>
                   <FormControlLabel
-                    control={<Switch checked={showIframe} onChange={() => setShowIframe((prev) => !prev)} name="showIframe" />}
+                    control={
+                      <Switch
+                        checked={showIframe || isMobileOnly}
+                        disabled={isMobileOnly}
+                        onChange={() => setShowIframe((prev) => !prev)}
+                        name="showIframe"
+                      />
+                    }
                     label={showIframe ? "expand list width" : "minimize list width"}
                   />
                 </FormGroup>
