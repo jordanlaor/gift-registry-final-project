@@ -18,7 +18,7 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import ListSubheader from "@material-ui/core/ListSubheader";
-import { isMobileOnly } from "react-device-detect";
+import { isMobileOnly, withOrientationChange } from "react-device-detect";
 
 import AppContext from "../../contexts/AppContext";
 import Nav from "../../components/Nav/Nav.component";
@@ -27,7 +27,8 @@ import functions from "../../functions/functions";
 import SocialMediaShare from "../../components/SocialMediaShare/SocialMediaShare.component";
 import "./listView.css";
 
-const ListView = () => {
+const ListView = withOrientationChange((props) => {
+  const { isLandscape, isPortrait } = props;
   const appContext = useContext(AppContext);
   const iframeRef = useRef(null);
   const [src, setSrc] = useState("https://www.amazon.com/");
@@ -37,9 +38,8 @@ const ListView = () => {
   const iframeContainerRef = useRef(null);
   const listWrapperRef = useRef(null);
   const [listHeight, setListHeight] = useState(0);
-  const [showIframe, setShowIframe] = useState(true);
+  const [showIframe, setShowIframe] = useState(!isMobileOnly);
   const [listProps, setListProps] = useState({});
-  const [iframeError, setIframeError] = useState(false);
 
   const history = useHistory();
 
@@ -138,7 +138,7 @@ const ListView = () => {
   const addItem = async () => {
     setIsLoading(true);
     try {
-      const item = await functions.createItem(iframeRef.current.firstElementChild.dataset.actualurl);
+      const item = await functions.createItem(iframeRef.current?.firstElementChild?.dataset?.actualurl || srcInput);
       const items = await functions.addItemToList(appContext.listId, item);
       await getListItems();
     } catch (error) {
@@ -166,6 +166,8 @@ const ListView = () => {
   };
 
   const resetListHeight = () => setListHeight(() => 0);
+
+  const setSrcToBeInputSrc = () => setSrc(() => srcInput);
 
   useEffect(() => {
     getListItems();
@@ -221,13 +223,26 @@ const ListView = () => {
             value={srcInput}
             onChange={(e) => setSrcInput(() => e.target.value)}
           />
-          <IconButton
-            className={classes.searchIcon}
-            aria-label="search"
-            onClick={() => setSrc(() => (srcInput.length ? srcInput : "https://www.amazon.com/"))}
-          >
-            <i class="fas fa-search"></i>
-          </IconButton>
+          {isMobileOnly ? (
+            <IconButton
+              className={classes.searchIcon}
+              aria-label="add"
+              onClick={() => {
+                setSrcToBeInputSrc();
+                addItem();
+              }}
+            >
+              <i class="fas fa-plus"></i>
+            </IconButton>
+          ) : (
+            <IconButton
+              className={classes.searchIcon}
+              aria-label="search"
+              onClick={() => setSrc(() => (srcInput.length ? srcInput : "https://www.amazon.com/"))}
+            >
+              <i class="fas fa-search"></i>
+            </IconButton>
+          )}
         </Box>
         <div className="iframe-container" ref={iframeContainerRef}>
           {showIframe && (
@@ -260,7 +275,11 @@ const ListView = () => {
                     label={showIframe ? "expand list width" : "minimize list width"}
                   />
                 </FormGroup>
-                <SocialMediaShare shareLink={shareLink} shareText={shareText} style={showIframe ? {} : { flexDirection: "row" }} />
+                <SocialMediaShare
+                  shareLink={shareLink}
+                  shareText={shareText}
+                  style={showIframe ? {} : isMobileOnly && isPortrait ? {} : { flexDirection: "row" }}
+                />
                 <Divider />
               </ListSubheader>
               {renderListItems()}
@@ -270,6 +289,6 @@ const ListView = () => {
       </div>
     </>
   );
-};
+});
 
 export default ListView;
