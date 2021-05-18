@@ -251,7 +251,7 @@ const ListView = () => {
                   <FormControlLabel
                     control={
                       <Switch
-                        checked={showIframe || isMobileOnly}
+                        checked={showIframe && !isMobileOnly}
                         disabled={isMobileOnly}
                         onChange={() => setShowIframe((prev) => !prev)}
                         name="showIframe"
