@@ -126,7 +126,7 @@ const GifterList = () => {
   return (
     <>
       <Nav>
-        <Button color="inherit" component={Link} href={window.location.origin}>
+        <Button underline="none" color="inherit" component={Link} href={window.location.origin}>
           My Lists
         </Button>
         <div className="nav-list-section nav-gifter nav-user-info">
