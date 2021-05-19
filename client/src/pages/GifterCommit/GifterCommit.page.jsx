@@ -10,13 +10,15 @@ import Nav from "../../components/Nav/Nav.component";
 import image from "../../images/giftGiving.png";
 
 import "./giftCommit.css";
+import { isMobileOnly, withOrientationChange } from "react-device-detect";
 
-const GifterCommit = () => {
+const GifterCommit = withOrientationChange((props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [itemTaken, setItemTaken] = useState(false);
   const [itemName, setItemName] = useState(null);
   const appContext = useContext(AppContext);
   const params = useParams();
+  const { isLandscape, isPortrait } = props;
 
   const giftItem = async () => {
     setIsLoading(true);
@@ -50,7 +52,9 @@ const GifterCommit = () => {
           My Lists
         </Button>
         <div className="nav-list-section nav-gifter nav-user-info">
-          {appContext.userId !== appContext.ownerId && <Avatar alt={appContext.ownerName} src={appContext.ownerAvatar} />}
+          {appContext.userId !== appContext.ownerId && (!isMobileOnly || isLandscape) && (
+            <Avatar alt={appContext.ownerName} src={appContext.ownerAvatar} />
+          )}
           <div className="listNameGifter">{appContext.listName}</div>
         </div>
       </Nav>
@@ -83,6 +87,6 @@ const GifterCommit = () => {
       )}
     </>
   );
-};
+});
 
 export default GifterCommit;

@@ -19,14 +19,16 @@ import functions from "../../functions/functions";
 import Nav from "../../components/Nav/Nav.component";
 
 import "./giferList.css";
+import { isMobileOnly, withOrientationChange } from "react-device-detect";
 
-const GifterList = () => {
+const GifterList = withOrientationChange((props) => {
   const history = useHistory();
   const search = new URLSearchParams(useLocation().search);
   const params = useParams();
   const appContext = useContext(AppContext);
   const [isLoading, setIsLoading] = useState(false);
   const [items, setItems] = useState([]);
+  const { isLandscape, isPortrait } = props;
 
   useEffect(() => {
     const loadList = async () => {
@@ -131,7 +133,9 @@ const GifterList = () => {
           My Lists
         </Button>
         <div className="nav-list-section nav-gifter nav-user-info">
-          {appContext.userId !== appContext.ownerId && <Avatar alt={appContext.ownerName} src={appContext.ownerAvatar} />}
+          {appContext.userId !== appContext.ownerId && (!isMobileOnly || isLandscape) && (
+            <Avatar alt={appContext.ownerName} src={appContext.ownerAvatar} />
+          )}
           <div className="listNameGifter">{appContext.listName}</div>
         </div>
       </Nav>
@@ -140,6 +144,6 @@ const GifterList = () => {
     </>
   );
   // return <SignIn />;
-};
+});
 
 export default GifterList;

@@ -23,3 +23,15 @@
   align-self: center;
   justify-self: center;
 }
+
+@media (max-width: 850px) {
+  .gifter-commit-page {
+    margin: 1rem;
+  }
+}
+@media (max-width: 850px) AND (orientation: landscape) {
+  .giving-a-gift-img {
+    width: unset;
+    height: 34vh;
+  }
+}
