@@ -223,17 +223,19 @@ const ListView = withOrientationChange((props) => {
             value={srcInput}
             onChange={(e) => setSrcInput(() => e.target.value)}
           />
+
+          <IconButton
+            className={classes.searchIcon}
+            aria-label="add"
+            onClick={() => {
+              setSrcToBeInputSrc();
+              addItem();
+            }}
+          >
+            <i class="fas fa-plus"></i>
+          </IconButton>
           {isMobileOnly ? (
-            <IconButton
-              className={classes.searchIcon}
-              aria-label="add"
-              onClick={() => {
-                setSrcToBeInputSrc();
-                addItem();
-              }}
-            >
-              <i class="fas fa-plus"></i>
-            </IconButton>
+            <div></div>
           ) : (
             <IconButton
               className={classes.searchIcon}
@@ -262,19 +264,21 @@ const ListView = withOrientationChange((props) => {
           <div className={`list-view-list-wrapper`} style={{ height: listHeight, ...listProps }} ref={listWrapperRef}>
             <List component="nav" className={classes.list}>
               <ListSubheader className={classes.listTop}>
-                <FormGroup row className>
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={showIframe && !isMobileOnly}
-                        disabled={isMobileOnly}
-                        onChange={() => setShowIframe((prev) => !prev)}
-                        name="showIframe"
-                      />
-                    }
-                    label={showIframe ? "expand list width" : "minimize list width"}
-                  />
-                </FormGroup>
+                {!isMobileOnly && (
+                  <FormGroup row className>
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          checked={showIframe && !isMobileOnly}
+                          disabled={isMobileOnly}
+                          onChange={() => setShowIframe((prev) => !prev)}
+                          name="showIframe"
+                        />
+                      }
+                      label={showIframe ? "expand list width" : "minimize list width"}
+                    />
+                  </FormGroup>
+                )}
                 <SocialMediaShare
                   shareLink={shareLink}
                   shareText={shareText}
