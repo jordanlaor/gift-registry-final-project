@@ -14,9 +14,6 @@ import Divider from "@material-ui/core/Divider";
 import TextClamp from "react-string-clamp";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import { isMobileOnly, withOrientationChange } from "react-device-detect";
 
@@ -25,6 +22,7 @@ import Nav from "../../components/Nav/Nav.component";
 import Iframe from "../../components/Iframe/Iframe.component";
 import functions from "../../functions/functions";
 import SocialMediaShare from "../../components/SocialMediaShare/SocialMediaShare.component";
+import Switch from "../../components/Switch/SwitchShow.component";
 import "./listView.css";
 
 const ListView = withOrientationChange((props) => {
@@ -264,21 +262,7 @@ const ListView = withOrientationChange((props) => {
           <div className={`list-view-list-wrapper`} style={{ height: listHeight, ...listProps }} ref={listWrapperRef}>
             <List component="nav" className={classes.list}>
               <ListSubheader className={classes.listTop}>
-                {!isMobileOnly && (
-                  <FormGroup row className>
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          checked={showIframe && !isMobileOnly}
-                          disabled={isMobileOnly}
-                          onChange={() => setShowIframe((prev) => !prev)}
-                          name="showIframe"
-                        />
-                      }
-                      label={showIframe ? "expand list width" : "minimize list width"}
-                    />
-                  </FormGroup>
-                )}
+                {!isMobileOnly && <Switch showIframe={showIframe} setShowIframe={setShowIframe} isMobileOnly={isMobileOnly} />}
                 <SocialMediaShare
                   shareLink={shareLink}
                   shareText={shareText}

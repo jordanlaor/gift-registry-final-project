@@ -38,35 +38,35 @@ const Nav = (props) => {
   return (
     <>
       {isMobileOnly ? (
-        // <>
-        //   <AppBar position="fixed" className={classes.navWrapper}>
-        //     <IconButton
-        //       edge="start"
-        //       className={classes.menuButton}
-        //       color="inherit"
-        //       aria-label="menu"
-        //       onClick={() => setOpen((prev) => !prev)}
-        //     >
-        //       <i class="fas fa-bars"></i>
-        //     </IconButton>
-        //   </AppBar>
-        //   <Drawer anchor="left" open={open}>
-        //     {children && children}
-        //     {appContext.userId ? (
-        //       <>
-        //         <Avatar alt={appContext.userName} src={appContext.userAvatar} />
-        //         <span>{appContext.userFirstName}</span>
-        //         <Button color="inherit" component={Link} href={window.location.href} onClick={signOut} className={classes.navItem}>
-        //           Sign Out
-        //         </Button>
-        //       </>
-        //     ) : (
-        //       <SignIn />
-        //     )}
-        //   </Drawer>
-        // </>
-        <div></div>
+        <>
+          <AppBar position="static" className={classes.navWrapper}>
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+              onClick={() => setOpen((prev) => !prev)}
+            >
+              <i class="fas fa-bars"></i>
+            </IconButton>
+          </AppBar>
+          <Drawer anchor="left" open={open}>
+            {children && children}
+            {appContext.userId ? (
+              <>
+                <Avatar alt={appContext.userName} src={appContext.userAvatar} />
+                <span>{appContext.userFirstName}</span>
+                <Button color="inherit" component={Link} href={window.location.href} onClick={signOut} className={classes.navItem}>
+                  Sign Out
+                </Button>
+              </>
+            ) : (
+              <SignIn />
+            )}
+          </Drawer>
+        </>
       ) : (
+        // <div></div>
         // FIXME figure this menu out
         <AppBar position="sticky" className={classes.navWrapper}>
           <Toolbar className={classes.nav}>
