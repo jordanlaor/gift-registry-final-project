@@ -34,7 +34,6 @@ const Nav = withOrientationChange((props) => {
   };
 
   return (
-    // FIXME figure this menu out
     <AppBar position="sticky" className={classes.navWrapper}>
       <Toolbar className={classes.nav}>
         {(children && children) || <span></span>}

@@ -4,7 +4,6 @@ const ListOwner = require("./ListOwner");
 
 const ListSchema = new mongoose.Schema({
   owner: {
-    // TODO replace with auth owner var
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "ListOwner",
@@ -48,7 +47,6 @@ ListSchema.methods.deleteItem = async function (itemId) {
   try {
     const list = this;
     list.listItems = list.listItems.filter((item) => {
-      console.log(item._id, itemId);
       return item._id != itemId;
     });
     await list.save();
@@ -66,7 +64,6 @@ ListSchema.methods.takeItem = async function (itemId, userId) {
     const item = list.listItems.id(itemId);
     // const item = list.listItems.find((item) => item._id === itemId);
     if (!item) throw "No such item";
-    debugger;
     item.taker = userId || null;
     await list.save();
     return item;

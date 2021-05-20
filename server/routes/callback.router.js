@@ -6,9 +6,7 @@ const ListOwner = require("../models/ListOwner");
 const callbackRouter = new express.Router();
 
 callbackRouter.post("/", async (req, res) => {
-  // TODO add auth
   try {
-    debugger;
     const url = req.query.redirect.replace(/\/$/, "") + `?token=${req.body.connection_token}&page=${req.query.page}`;
     res.cookie("user_token", req.body.connection_token, { maxAge: 60000 * 60 * 24 });
     res.redirect(url);

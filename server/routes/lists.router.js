@@ -5,13 +5,11 @@ const ListOwner = require("../models/ListOwner");
 const listsRouter = new express.Router();
 
 listsRouter.get("/", async (req, res) => {
-  // FIXME find by owner and not all
   try {
     const owner = req.header("Authorization").replace("Bearer ", "");
     const lists = await List.find({ owner });
     res.status(200).send(lists);
   } catch (error) {
-    // TODO fix error handling
     res.status(500).send(error);
   }
 });
@@ -22,10 +20,8 @@ listsRouter.get("/:id", async (req, res) => {
     if (!list) return res.status(404).send("List not found");
     await list.populate({ path: "owner", select: "name image" }).execPopulate();
     await list.populate({ path: "listItems", populate: { path: "taker" } }).execPopulate();
-    debugger;
     res.status(200).send(list);
   } catch (error) {
-    // TODO fix error handling
     console.log(error);
     res.status(500).send(error);
   }
@@ -36,7 +32,6 @@ listsRouter.delete("/:listId/:itemId", async (req, res) => {
     const list = await List.findById(req.params.listId);
     if (!list) res.status(404).send("List not found");
     const filtered = await list.deleteItem(req.params.itemId);
-    console.log(req.params);
     res.status(200).send(filtered);
   } catch (error) {
     res.status(500).send(error);
@@ -57,7 +52,6 @@ listsRouter.put("/:id", async (req, res) => {
     const list = await List.findById(req.params.id);
     if (!list) res.status(404).send("List not found");
     const listItems = await list.addItem(req.body);
-    // TODO move to pre save
     res.status(201).send(listItems);
   } catch (error) {
     res.status(500).send(error);
@@ -69,7 +63,6 @@ listsRouter.patch("/:id", async (req, res) => {
     const list = await List.findById(req.params.id);
     if (!list) res.status(404).send("List not found");
     const listItem = await list.takeItem(req.body.itemId, req.body.userId);
-    // TODO move to pre save
     res.status(201).send(listItem);
   } catch (error) {
     res.status(500).send(error);

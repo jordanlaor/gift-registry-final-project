@@ -20,14 +20,10 @@ const CreateList = (props) => {
         owner: appContext.ownerId,
         listName: name.length ? name : `${appContext.ownerFirstName}'s List`,
       });
-      // TODO add success handling
-      console.log(appContext);
-      console.log(data._id);
       appContext.setListId(data._id);
       appContext.setListName(data.listName);
       history.push("/list");
     } catch (error) {
-      // TODO add error handling
       console.log(error);
     }
   };

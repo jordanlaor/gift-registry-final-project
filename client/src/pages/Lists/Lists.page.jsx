@@ -35,7 +35,6 @@ const Lists = () => {
   const deleteList = async (listId) => {
     try {
       const lists = await functions.deleteList(listId);
-      console.log(lists);
       getLists();
     } catch (error) {
       console.log(error);
@@ -71,7 +70,6 @@ const Lists = () => {
       const data = await functions.getOwnerLists(appContext.ownerId);
       setLists(data);
     } catch (error) {
-      // TODO add error handling
       console.log(error);
     } finally {
       setIsLoading(false);
@@ -85,7 +83,7 @@ const Lists = () => {
       appContext.setOwnerName(appContext.userName);
       appContext.setOwnerFirstName(appContext.userFirstName);
     } catch (error) {
-      console.log(error.data);
+      console.log(error);
     }
   };
 

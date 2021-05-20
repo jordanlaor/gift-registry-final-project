@@ -113,7 +113,6 @@ const ListView = withOrientationChange((props) => {
   const deleteList = async () => {
     try {
       const lists = await functions.deleteList(appContext.listId);
-      console.log(lists);
       switchList();
     } catch (error) {
       console.log(error);
@@ -126,7 +125,6 @@ const ListView = withOrientationChange((props) => {
       const data = await functions.getListItems(appContext.listId);
       setItems(data.listItems);
     } catch (error) {
-      // TODO add error handling
       console.log(error);
     } finally {
       setIsLoading(false);

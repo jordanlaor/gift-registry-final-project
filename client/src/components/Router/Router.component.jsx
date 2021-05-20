@@ -60,7 +60,6 @@ const Router = () => {
           {appContext.userId && appContext.userId === appContext.ownerId ? <Redirect path="/list" /> : <GifterCommit />}
         </Route>
         <Redirect path="/" />
-        {/* TODO add 404 */}
       </Switch>
     </BrowserRouter>
   );

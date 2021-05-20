@@ -18,7 +18,6 @@ app.use(express.static(pubDir));
 
 require("./db/mongoose");
 
-// TODO add routers
 app.use("/api/owner", ownerRouter);
 app.use("/api/lists", listsRouter);
 app.use("/api/user", userRouter);
@@ -27,9 +26,6 @@ app.use("/api/test", testRouter);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/api/callback", callbackRouter);
-
-// add default routing - 404 page
-// TODO figure out how errors should look like
 
 app.use("/", (req, res) => {
   res.sendFile(path.join(pubDir, "index.html"));

@@ -45,7 +45,6 @@ const GifterList = withOrientationChange((props) => {
         }
       } catch (error) {
         console.log(error);
-        // TODO error handling
       }
     };
     loadList();
@@ -61,7 +60,6 @@ const GifterList = withOrientationChange((props) => {
         appContext.setListName(data.listName);
       }
     } catch (error) {
-      // TODO add error handling
       console.log(error);
     } finally {
       setIsLoading(false);

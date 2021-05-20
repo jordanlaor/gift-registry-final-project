@@ -7,7 +7,6 @@ const functions = {
       const { data } = await axios.get(`/api/lists/${listId}`);
       return data;
     } catch (error) {
-      // TODO error handling
       throw error;
     }
   },
@@ -16,7 +15,6 @@ const functions = {
       const { data } = await axios.delete(`/api/lists/${listId}`);
       return data;
     } catch (error) {
-      // TODO error handling
       throw error;
     }
   },
@@ -25,7 +23,6 @@ const functions = {
       const { data } = await axios.delete(`/api/lists/${listId}/${itemId}`);
       return data;
     } catch (error) {
-      // TODO error handling
       throw error;
     }
   },
@@ -34,7 +31,6 @@ const functions = {
       const { data } = await axios.get(`/api/lists/`, { headers: { Authorization: `Bearer ${ownerId}` } });
       return data;
     } catch (error) {
-      // TODO error handling
       throw error;
     }
   },
@@ -43,7 +39,6 @@ const functions = {
       const { data } = await axios.put(`/api/lists/${listId}`, { ...item });
       return data;
     } catch (error) {
-      // TODO error handling
       throw error;
     }
   },
@@ -51,7 +46,6 @@ const functions = {
     const { data } = await axios.get(`https://jordans-cors-anywhere.herokuapp.com/${src}`);
     let imgHTML;
     const asin = data.match(/(?:dp|o|gp|-|product)\/(B[0-9]{2}[0-9A-Z]{7}|[0-9]{9}(?:X|[0-9]))/im);
-    // FIXME fix the amazon img pattern
     if (asin) {
       imgHTML = [
         "amazon",
@@ -91,7 +85,6 @@ const functions = {
       const { data } = await axios.patch(`/api/lists/${listId}`, { userId, itemId });
       return data;
     } catch (error) {
-      // TODO error handling
       throw error;
     }
   },
@@ -100,7 +93,6 @@ const functions = {
       const { data } = await axios.patch(`/api/lists/${listId}`, { userId: null, itemId });
       return data;
     } catch (error) {
-      // TODO error handling
       throw error;
     }
   },

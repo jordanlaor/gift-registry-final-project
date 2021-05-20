@@ -19,7 +19,6 @@ testRouter.post("/newList", async (req, res) => {
   try {
     const list = new List(req.body);
 
-    // TODO move to pre save
     await list.save();
     res.status(201).send(list);
   } catch (error) {
@@ -34,7 +33,6 @@ testRouter.post("/newItem", async (req, res) => {
     const list = await List.findById(listId);
     if (!list) throw "no list";
     const listItems = await list.addItem(item);
-    // TODO move to pre save
     res.status(201).send(listItems);
   } catch (error) {
     res.status(500).send(error);
@@ -50,7 +48,6 @@ testRouter.patch("/takeItem", async (req, res) => {
     const list = await List.findById(listId);
     if (!list) throw "no list";
     const listItems = await list.takeItem(itemId, name);
-    // TODO move to pre save
     res.status(201).send(listItems);
   } catch (error) {
     res.status(500).send(error);

@@ -6,7 +6,6 @@ const ListOwner = require("../models/ListOwner");
 const ownerRouter = new express.Router();
 
 ownerRouter.post("/lists", async (req, res) => {
-  // TODO add auth
   try {
     const list = new List(req.body);
     await list.save();
