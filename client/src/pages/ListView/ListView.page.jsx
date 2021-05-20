@@ -219,17 +219,6 @@ const ListView = withOrientationChange((props) => {
             value={srcInput}
             onChange={(e) => setSrcInput(() => e.target.value)}
           />
-
-          <IconButton
-            className={classes.searchIcon}
-            aria-label="add"
-            onClick={() => {
-              setSrcToBeInputSrc();
-              addItem();
-            }}
-          >
-            <i class="fas fa-plus"></i>
-          </IconButton>
           {isMobileOnly || !showIframe ? (
             <div></div>
           ) : (
@@ -241,6 +230,17 @@ const ListView = withOrientationChange((props) => {
               <i class="fas fa-search"></i>
             </IconButton>
           )}
+
+          <IconButton
+            className={classes.searchIcon}
+            aria-label="add"
+            onClick={() => {
+              setSrcToBeInputSrc();
+              addItem();
+            }}
+          >
+            <i class="fas fa-plus"></i>
+          </IconButton>
         </Box>
         <div className="iframe-container" ref={iframeContainerRef}>
           {showIframe && (
