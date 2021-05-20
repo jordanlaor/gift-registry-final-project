@@ -232,7 +232,7 @@ const ListView = withOrientationChange((props) => {
           >
             <i class="fas fa-plus"></i>
           </IconButton>
-          {isMobileOnly ? (
+          {isMobileOnly || !showIframe ? (
             <div></div>
           ) : (
             <IconButton
