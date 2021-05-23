@@ -1,6 +1,5 @@
-import axios from "axios";
 import React, { useContext, useEffect } from "react";
-import { BrowserRouter, Switch, Route, Redirect, useLocation } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import GifterListPage from "../../pages/GifterList/GifterList.page";
 import AppContext from "../../contexts/AppContext";
