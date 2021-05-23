@@ -60,9 +60,7 @@ ListSchema.methods.deleteItem = async function (itemId) {
 ListSchema.methods.takeItem = async function (itemId, userId) {
   try {
     const list = this;
-    // const item = list.listItems.find((item) => item._id === itemId);
     const item = list.listItems.id(itemId);
-    // const item = list.listItems.find((item) => item._id === itemId);
     if (!item) throw "No such item";
     item.taker = userId || null;
     await list.save();
@@ -76,9 +74,7 @@ ListSchema.methods.takeItem = async function (itemId, userId) {
 ListSchema.methods.untakeItem = async function (itemId, userId) {
   try {
     const list = this;
-    // const item = list.listItems.find((item) => item._id === itemId);
     const item = list.listItems.id(itemId);
-    // const item = list.listItems.find((item) => item._id === itemId);
     if (!item) throw "No such item";
     item.taker = null;
     await list.save();
